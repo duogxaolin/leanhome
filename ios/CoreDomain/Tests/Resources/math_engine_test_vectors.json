@@ -1,0 +1,437 @@
+{
+  "$schema": "https://leanhome.app/schemas/test-vectors.json",
+  "description": "Canonical mathematical test vectors for LeanHome Energy Balance Engine. Both Swift (XCTest) and Kotlin (JUnit) implementations MUST pass 100% of these vectors identically.",
+  "version": "1.0.0",
+  "bmr_tdee_tests": [
+    {
+      "id": "bmr_male_25_sedentary",
+      "description": "25yo male, 75kg, 175cm, sedentary PAL 1.2",
+      "input": {
+        "gender": "MALE",
+        "age": 25,
+        "weight_kg": 75,
+        "height_cm": 175,
+        "activity_level": "SEDENTARY"
+      },
+      "expected": {
+        "bmr": 1723.75,
+        "tdee": 2068.5
+      }
+    },
+    {
+      "id": "bmr_female_30_light",
+      "description": "30yo female, 60kg, 160cm, lightly active PAL 1.375",
+      "input": {
+        "gender": "FEMALE",
+        "age": 30,
+        "weight_kg": 60,
+        "height_cm": 160,
+        "activity_level": "LIGHTLY_ACTIVE"
+      },
+      "expected": {
+        "bmr": 1289.0,
+        "tdee": 1772.375
+      }
+    },
+    {
+      "id": "bmr_male_50_very_active",
+      "description": "50yo male, 90kg, 180cm, very active PAL 1.725 (boundary age)",
+      "input": {
+        "gender": "MALE",
+        "age": 50,
+        "weight_kg": 90,
+        "height_cm": 180,
+        "activity_level": "VERY_ACTIVE"
+      },
+      "expected": {
+        "bmr": 1780.0,
+        "tdee": 3070.5
+      }
+    },
+    {
+      "id": "bmr_female_13_moderate",
+      "description": "13yo female (minimum age boundary), 50kg, 160cm, moderately active PAL 1.55",
+      "input": {
+        "gender": "FEMALE",
+        "age": 13,
+        "weight_kg": 50,
+        "height_cm": 160,
+        "activity_level": "MODERATELY_ACTIVE"
+      },
+      "expected": {
+        "bmr": 1274.0,
+        "tdee": 1974.7
+      }
+    },
+    {
+      "id": "bmr_male_99_sedentary",
+      "description": "99yo male (maximum age boundary), 70kg, 170cm, sedentary PAL 1.2",
+      "input": {
+        "gender": "MALE",
+        "age": 99,
+        "weight_kg": 70,
+        "height_cm": 170,
+        "activity_level": "SEDENTARY"
+      },
+      "expected": {
+        "bmr": 1272.5,
+        "tdee": 1527.0
+      }
+    },
+    {
+      "id": "bmr_other_gender_male_formula",
+      "description": "Other gender uses male formula as default, 30yo, 70kg, 175cm, sedentary",
+      "input": {
+        "gender": "OTHER",
+        "age": 30,
+        "weight_kg": 70,
+        "height_cm": 175,
+        "activity_level": "SEDENTARY"
+      },
+      "expected": {
+        "bmr": 1648.75,
+        "tdee": 1978.5
+      }
+    }
+  ],
+  "deficit_calculation_tests": [
+    {
+      "id": "deficit_normal_60day",
+      "description": "5kg loss over 60 days — normal safe deficit",
+      "input": {
+        "target_weight_loss_kg": 5,
+        "target_days": 60
+      },
+      "expected": {
+        "daily_deficit": 641.6667,
+        "is_safe": true,
+        "warning_level": "NONE"
+      }
+    },
+    {
+      "id": "deficit_normal_90day",
+      "description": "8kg loss over 90 days — moderate safe deficit",
+      "input": {
+        "target_weight_loss_kg": 8,
+        "target_days": 90
+      },
+      "expected": {
+        "daily_deficit": 684.4444,
+        "is_safe": true,
+        "warning_level": "NONE"
+      }
+    },
+    {
+      "id": "deficit_extreme_30day",
+      "description": "5kg loss over 30 days — exceeds 25% TDEE ceiling, triggers extreme warning",
+      "input": {
+        "target_weight_loss_kg": 5,
+        "target_days": 30,
+        "tdee": 2068.5,
+        "weight_kg": 75
+      },
+      "expected": {
+        "daily_deficit": 1283.3333,
+        "is_safe": false,
+        "warning_level": "EXTREME",
+        "clamped_deficit": 517.125,
+        "requires_dietary_intervention": true
+      }
+    },
+    {
+      "id": "deficit_boundary_exact_25pct",
+      "description": "Deficit exactly at 25% TDEE boundary — safe but at ceiling",
+      "input": {
+        "target_weight_loss_kg": 4.03,
+        "target_days": 60,
+        "tdee": 2068.5,
+        "weight_kg": 75
+      },
+      "expected": {
+        "daily_deficit": 517.1833,
+        "is_safe": true,
+        "warning_level": "AT_CEILING"
+      }
+    },
+    {
+      "id": "deficit_1000kcal_hard_cap",
+      "description": "Large TDEE user where 25% would exceed 1000 kcal hard cap",
+      "input": {
+        "target_weight_loss_kg": 10,
+        "target_days": 50,
+        "tdee": 5000,
+        "weight_kg": 120
+      },
+      "expected": {
+        "daily_deficit": 1540.0,
+        "is_safe": false,
+        "warning_level": "EXTREME",
+        "clamped_deficit": 1000,
+        "requires_dietary_intervention": true
+      }
+    }
+  ],
+  "safety_threshold_tests": [
+    {
+      "id": "max_weekly_rate_75kg",
+      "description": "Maximum safe weekly weight loss for 75kg user is 1% = 0.75 kg/week",
+      "input": {
+        "weight_kg": 75
+      },
+      "expected": {
+        "max_weekly_loss_kg": 0.75
+      }
+    },
+    {
+      "id": "max_weekly_rate_50kg",
+      "description": "Maximum safe weekly weight loss for 50kg user",
+      "input": {
+        "weight_kg": 50
+      },
+      "expected": {
+        "max_weekly_loss_kg": 0.5
+      }
+    },
+    {
+      "id": "min_intake_male",
+      "description": "Minimum caloric intake floor for males",
+      "input": {
+        "gender": "MALE"
+      },
+      "expected": {
+        "min_caloric_intake": 1500
+      }
+    },
+    {
+      "id": "min_intake_female",
+      "description": "Minimum caloric intake floor for females",
+      "input": {
+        "gender": "FEMALE"
+      },
+      "expected": {
+        "min_caloric_intake": 1200
+      }
+    },
+    {
+      "id": "safety_cap_small_tdee",
+      "description": "25% of small TDEE is the binding constraint (not 1000 kcal cap)",
+      "input": {
+        "tdee": 1500
+      },
+      "expected": {
+        "max_safe_deficit": 375.0
+      }
+    },
+    {
+      "id": "safety_cap_large_tdee",
+      "description": "1000 kcal hard cap is the binding constraint for large TDEE",
+      "input": {
+        "tdee": 5000
+      },
+      "expected": {
+        "max_safe_deficit": 1000.0
+      }
+    }
+  ],
+  "bmi_classification_tests": [
+    {
+      "id": "bmi_asian_overweight",
+      "description": "Country VN, BMI 24.0 → Overweight (Asian WHO standard)",
+      "input": {
+        "country_code": "VN",
+        "bmi": 24
+      },
+      "expected": {
+        "classification": "OVERWEIGHT",
+        "standard": "ASIAN_WHO",
+        "label": "Overweight / Pre-obese (Asian WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_international_normal",
+      "description": "Country US, BMI 24.0 → Normal (International WHO standard)",
+      "input": {
+        "country_code": "US",
+        "bmi": 24
+      },
+      "expected": {
+        "classification": "NORMAL",
+        "standard": "INTERNATIONAL_WHO",
+        "label": "Normal weight (International WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_asian_normal",
+      "description": "Country JP, BMI 22.0 → Normal (Asian WHO)",
+      "input": {
+        "country_code": "JP",
+        "bmi": 22
+      },
+      "expected": {
+        "classification": "NORMAL",
+        "standard": "ASIAN_WHO",
+        "label": "Normal (Asian WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_asian_obese",
+      "description": "Country KR, BMI 26.0 → Obese (Asian WHO)",
+      "input": {
+        "country_code": "KR",
+        "bmi": 26
+      },
+      "expected": {
+        "classification": "OBESE",
+        "standard": "ASIAN_WHO",
+        "label": "Obese (Asian WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_international_overweight",
+      "description": "Country GB, BMI 27.0 → Overweight (International WHO)",
+      "input": {
+        "country_code": "GB",
+        "bmi": 27
+      },
+      "expected": {
+        "classification": "OVERWEIGHT",
+        "standard": "INTERNATIONAL_WHO",
+        "label": "Overweight (International WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_international_obese",
+      "description": "Country AU, BMI 31.0 → Obese (International WHO)",
+      "input": {
+        "country_code": "AU",
+        "bmi": 31
+      },
+      "expected": {
+        "classification": "OBESE",
+        "standard": "INTERNATIONAL_WHO",
+        "label": "Obese (International WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_underweight_asian",
+      "description": "Country TH, BMI 17.0 → Underweight (Asian WHO, same threshold as intl)",
+      "input": {
+        "country_code": "TH",
+        "bmi": 17
+      },
+      "expected": {
+        "classification": "UNDERWEIGHT",
+        "standard": "ASIAN_WHO",
+        "label": "Underweight (Asian WHO Standard)"
+      }
+    },
+    {
+      "id": "bmi_computation",
+      "description": "BMI computation from raw height/weight: 78kg, 175cm → 25.47",
+      "input": {
+        "weight_kg": 78,
+        "height_cm": 175
+      },
+      "expected": {
+        "bmi": 25.474
+      }
+    }
+  ],
+  "maintenance_goal_tests": [
+    {
+      "id": "maintenance_zero_deficit",
+      "description": "HEALTH_MAINTENANCE goal → zero deficit, caloric target = TDEE",
+      "input": {
+        "fitness_goal": "HEALTH_MAINTENANCE",
+        "tdee": 2068.5
+      },
+      "expected": {
+        "daily_deficit": 0,
+        "caloric_target": 2068.5,
+        "skip_timeline": true
+      }
+    }
+  ],
+  "split_selection_tests": [
+    {
+      "id": "split_2_days_fullbody",
+      "description": "2 days/week → Full Body A/B alternating",
+      "input": {
+        "days_per_week": 2
+      },
+      "expected": {
+        "split_type": "FULL_BODY",
+        "sessions": [
+          "FULL_BODY_A",
+          "FULL_BODY_B"
+        ]
+      }
+    },
+    {
+      "id": "split_3_days_fullbody",
+      "description": "3 days/week → Full Body A/B alternating",
+      "input": {
+        "days_per_week": 3
+      },
+      "expected": {
+        "split_type": "FULL_BODY",
+        "sessions": [
+          "FULL_BODY_A",
+          "FULL_BODY_B",
+          "FULL_BODY_A"
+        ]
+      }
+    },
+    {
+      "id": "split_4_days_upper_lower",
+      "description": "4 days/week → Upper/Lower split",
+      "input": {
+        "days_per_week": 4
+      },
+      "expected": {
+        "split_type": "UPPER_LOWER",
+        "sessions": [
+          "UPPER_A",
+          "LOWER_A",
+          "UPPER_B",
+          "LOWER_B"
+        ]
+      }
+    },
+    {
+      "id": "split_5_days_ppl",
+      "description": "5 days/week → Push/Pull/Legs split",
+      "input": {
+        "days_per_week": 5
+      },
+      "expected": {
+        "split_type": "PPL",
+        "sessions": [
+          "PUSH",
+          "PULL",
+          "LEGS",
+          "PUSH",
+          "PULL"
+        ]
+      }
+    },
+    {
+      "id": "split_6_days_ppl",
+      "description": "6 days/week → Push/Pull/Legs x2",
+      "input": {
+        "days_per_week": 6
+      },
+      "expected": {
+        "split_type": "PPL",
+        "sessions": [
+          "PUSH",
+          "PULL",
+          "LEGS",
+          "PUSH",
+          "PULL",
+          "LEGS"
+        ]
+      }
+    }
+  ]
+}
