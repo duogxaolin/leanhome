@@ -1,0 +1,37 @@
+# macOS
+.DS_Store
+
+# Android
+*.iml
+.gradle/
+local.properties
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+build/
+*/build/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# iOS
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+xcuserdata/
+DerivedData/
+.build/
+
+# Node / JS
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Temporary files
+*.swp
+*~
+.env
