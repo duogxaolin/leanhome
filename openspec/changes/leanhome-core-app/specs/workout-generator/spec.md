@@ -39,3 +39,10 @@ Each session SHALL allocate between 4 and 7 exercises comprising 1 primary compo
 #### Scenario: Time constraint is 30 minutes
 - **WHEN** user specifies 30 minutes session duration
 - **THEN** generator selects 4 exercises (3 sets each, 60s rest intervals) fitting within 30 minutes
+
+### Requirement: Target Zone Muscle Focus Allocation
+When the user selects `TARGET_ZONE_TONING` as fitness goal with a specific muscle focus (e.g. CHEST, GLUTES, ARMS, CORE), the generator SHALL allocate at least 50% of isolation / accessory volume to the selected muscle group, while maintaining overall compound movement balance across the full body.
+
+#### Scenario: User targets chest zone
+- **WHEN** user selects `TARGET_ZONE_TONING` with focus muscle `CHEST`
+- **THEN** generator allocates at least 50% of isolation exercises targeting CHEST (e.g. Push-Up variations, DB Fly, Cable/Band Crossover) while still including leg and back compound movements for balance

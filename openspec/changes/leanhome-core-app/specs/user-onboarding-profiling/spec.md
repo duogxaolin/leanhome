@@ -6,11 +6,11 @@ Collects user biometric parameters, evaluates regional body mass and composition
 ## ADDED Requirements
 
 ### Requirement: Biometric Data Collection
-The system SHALL collect and validate basic user profile attributes: age (integer between 13 and 99), gender (Male, Female, Other), height in cm (positive float between 100.0 and 250.0), weight in kg (positive float between 30.0 and 300.0), and ISO country code.
+The system SHALL collect and validate basic user profile attributes: name (string between 1 and 50 characters), age (integer between 13 and 99), gender (Male, Female, Other), height in cm (positive float between 100.0 and 250.0), weight in kg (positive float between 30.0 and 300.0), and ISO country code.
 
 #### Scenario: Valid inputs provided
-- **WHEN** user submits age 28, gender Male, height 175.0 cm, weight 78.0 kg, country "VN"
-- **THEN** profile validation succeeds and computes BMI = 25.47 kg/m²
+- **WHEN** user submits name "Nguyen Van A", age 28, gender Male, height 175.0 cm, weight 78.0 kg, country "VN"
+- **THEN** profile validation succeeds, computes BMI = 25.47 kg/m², and stores name as display identity
 
 #### Scenario: Invalid height or weight provided
 - **WHEN** user inputs height 0 or weight -5

@@ -32,3 +32,10 @@ The system SHALL enforce safety ceilings:
 #### Scenario: User shortens timeline to 30 days (Extreme deficit trigger)
 - **WHEN** 75 kg male with TDEE 2068 kcal targets 5 kg loss in 30 days (requiring 1283 kcal/day deficit > 25% TDEE limit)
 - **THEN** system flags the selection as "High Risk / Extreme Deficit", clamps pure workout-based deficit to safe maximum, and displays a mandatory clinical disclaimer requiring dietary intervention and warning against muscle loss.
+
+### Requirement: Maintenance Goal Handling
+The system SHALL support a `HEALTH_MAINTENANCE` goal where no weight change is targeted. In this mode, the system SHALL skip deficit calculation and set the daily caloric target to TDEE (zero deficit), and the workout generator SHALL focus on cardiovascular and general conditioning rather than fat-loss volume.
+
+#### Scenario: User selects health maintenance goal
+- **WHEN** user selects `HEALTH_MAINTENANCE` as fitness goal
+- **THEN** system sets daily caloric target equal to TDEE with zero deficit, skips timeline slider, and workout generator prioritizes general conditioning
