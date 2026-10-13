@@ -1,0 +1,1829 @@
+[
+  {
+    "id": "push_up_standard",
+    "name_en": "Push-Up",
+    "name_vi": "Hít đất cơ bản",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_LOWER"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "FRONT_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_standard.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_standard.svg",
+    "common_mistakes": [
+      "Võng lưng dưới do thiếu gồng core",
+      "Khủy tay bẹt 90 độ so với thân gây chấn thương vai"
+    ],
+    "correct_form_cues": [
+      "Khủy tay tạo góc 45 độ so với thân",
+      "Siết mông và bụng tạo đường thẳng từ gót chân đến gáy"
+    ]
+  },
+  {
+    "id": "push_up_knee",
+    "name_en": "Knee Push-Up",
+    "name_vi": "Hít đất quỳ gối",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_LOWER"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "FRONT_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_knee.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_knee.svg",
+    "common_mistakes": [
+      "Hông cao hơn vai",
+      "Thả nhanh xuống không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Giữ hông và vai trên cùng 1 đường thẳng",
+      "Hạ xuống 2 giây, đẩy lên 1 giây"
+    ]
+  },
+  {
+    "id": "push_up_diamond",
+    "name_en": "Diamond Push-Up",
+    "name_vi": "Hít đất kim cương",
+    "primary_muscles": [
+      "TRICEPS",
+      "CHEST_MID"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "ELBOW",
+      "SHOULDER"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_diamond.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_diamond.svg",
+    "common_mistakes": [
+      "Tay đặt quá cao hoặc quá thấp so với ngực",
+      "Khủy tay mở rộng ra hai bên thay vì ép sát thân"
+    ],
+    "correct_form_cues": [
+      "Tay tạo hình kim cương ngay dưới ngực",
+      "Khủy tay ép sát thân khi hạ xuống"
+    ]
+  },
+  {
+    "id": "pull_up_standard",
+    "name_en": "Pull-Up",
+    "name_vi": "Hít xà cơ bản",
+    "primary_muscles": [
+      "LATS",
+      "BICEPS"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "RHOMBOIDS",
+      "REAR_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "PULL_UP_BAR"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/pull_up_standard.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/pull_up_standard.svg",
+    "common_mistakes": [
+      "Đung đưa cơ thể để lấy đà",
+      "Gập vai trèo lên thay vì kéo bằng bả vai"
+    ],
+    "correct_form_cues": [
+      "Khởi đầu tĩnh, không đung đưa",
+      "Kéo khuỷu tay xuống phía hông, siết bả vai"
+    ]
+  },
+  {
+    "id": "squat_bodyweight",
+    "name_en": "Bodyweight Squat",
+    "name_vi": "Squats tự do",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/squat_bodyweight.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/squat_bodyweight.svg",
+    "common_mistakes": [
+      "Đầu gối chụp vào trong (valgus knee)",
+      "Nâng gót chân khỏi sàn khi squat xuống sâu"
+    ],
+    "correct_form_cues": [
+      "Đầu gối hướng theo mũi chân",
+      "Gió lưng dưới, trọng tâm gót chân"
+    ]
+  },
+  {
+    "id": "squat_goblet",
+    "name_en": "Goblet Squat",
+    "name_vi": "Squat bục tạ đơn",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS",
+      "BICEPS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "WRIST"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/squat_goblet.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/squat_goblet.svg",
+    "common_mistakes": [
+      "Tạ xa cơ thể gây nghiêng về phía trước",
+      "Lưng tròn khi squat xuống sâu"
+    ],
+    "correct_form_cues": [
+      "Giữ tạ sát ngực",
+      "Lưng thẳng, hạ hông xuống dưới đầu gối"
+    ]
+  },
+  {
+    "id": "lunges_bodyweight",
+    "name_en": "Lunges",
+    "name_vi": "Chùng chân bước",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/lunges_bodyweight.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/lunges_bodyweight.svg",
+    "common_mistakes": [
+      "Bước chân quá ngắn gây đè gối",
+      "Đầu gối trước vượt quá mũi chân"
+    ],
+    "correct_form_cues": [
+      "Bước chân đủ dài để gối trước vuông góc 90 độ",
+      "Giọng thẳng thân trên, không ngả ra trước"
+    ]
+  },
+  {
+    "id": "lunges_reverse",
+    "name_en": "Reverse Lunges",
+    "name_vi": "Chùng chân lùi",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/lunges_reverse.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/lunges_reverse.svg",
+    "common_mistakes": [
+      "Chân sau gối chạm sàn mạnh",
+      "Thân trên ngả ra phía trước"
+    ],
+    "correct_form_cues": [
+      "Hạ chân sau nhẹ nhàng, gối sau không chạm sàn",
+      "Giữ thẳng thân trên, siết core"
+    ]
+  },
+  {
+    "id": "glute_bridge",
+    "name_en": "Glute Bridge",
+    "name_vi": "Cầu mông",
+    "primary_muscles": [
+      "GLUTES",
+      "HAMSTRINGS"
+    ],
+    "secondary_muscles": [
+      "ABS",
+      "LOWER_BACK"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/glute_bridge.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/glute_bridge.svg",
+    "common_mistakes": [
+      "Dùng lưng đẩy hông thay vì mông",
+      "Hông không nâng đủ cao"
+    ],
+    "correct_form_cues": [
+      "Nén mông đẩy hông lên đến thẳng với thân",
+      "Siết bụng khi nâng hông, không võng lưng"
+    ]
+  },
+  {
+    "id": "plank_standard",
+    "name_en": "Plank",
+    "name_vi": "Tấm ván",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES"
+    ],
+    "secondary_muscles": [
+      "LOWER_BACK",
+      "FRONT_DELTOID",
+      "GLUTES"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/plank_standard.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/plank_standard.svg",
+    "common_mistakes": [
+      "Võng lưng dưới",
+      "Đầu gập xuống hoặc ngửa lên"
+    ],
+    "correct_form_cues": [
+      "Cố định thẳng từ gáy đến gót chân",
+      "Mắt nhìn xuống sàn, cổ thẳng"
+    ]
+  },
+  {
+    "id": "plank_side",
+    "name_en": "Side Plank",
+    "name_vi": "Tấm ván nghiêng",
+    "primary_muscles": [
+      "OBLIQUES",
+      "ABS"
+    ],
+    "secondary_muscles": [
+      "SHOULDER",
+      "GLUTES",
+      "HIP_FLEXORS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/plank_side.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/plank_side.svg",
+    "common_mistakes": [
+      "Hông chùng xuống sàn",
+      "Thân người không giữ thẳng một bên"
+    ],
+    "correct_form_cues": [
+      "Nâng hông lên thẳng với thân",
+      "Tay chống vuông góc với vai"
+    ]
+  },
+  {
+    "id": "db_row_bent_over",
+    "name_en": "Bent-Over DB Row",
+    "name_vi": "Kéo tạ đơn cúi người",
+    "primary_muscles": [
+      "LATS",
+      "RHOMBOIDS",
+      "TRAPEZIUS"
+    ],
+    "secondary_muscles": [
+      "BICEPS",
+      "REAR_DELTOID",
+      "LOWER_BACK"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_row_bent_over.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_row_bent_over.svg",
+    "common_mistakes": [
+      "Lưng tròn khi cúi người kéo",
+      "Kéo bằng biceps thay vì lưng"
+    ],
+    "correct_form_cues": [
+      "Giữ lưng thẳng khi cúi người 45 độ",
+      "Kéo tạ về phía hông, siết bả vai lại"
+    ]
+  },
+  {
+    "id": "db_row_chest_supported",
+    "name_en": "Chest-Supported DB Row",
+    "name_vi": "Kéo tạ đơn chống ngực",
+    "primary_muscles": [
+      "LATS",
+      "RHOMBOIDS",
+      "TRAPEZIUS"
+    ],
+    "secondary_muscles": [
+      "BICEPS",
+      "REAR_DELTOID"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_row_chest_supported.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_row_chest_supported.svg",
+    "common_mistakes": [
+      "Nâng tạ quá cao gây chấn thương vai",
+      "Thân người lệch khỏi ghế khi kéo"
+    ],
+    "correct_form_cues": [
+      "Kéo tạ đến ngang bả vai, không quá cao",
+      "Giữ thân cố định trên ghế nghiêng"
+    ]
+  },
+  {
+    "id": "db_bench_press",
+    "name_en": "DB Bench Press",
+    "name_vi": "Đẩy tạ đơn trên ghế",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_UPPER",
+      "FRONT_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "WRIST",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_bench_press.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_bench_press.svg",
+    "common_mistakes": [
+      "Hạ tạ quá thấp gây xô qhả vai",
+      "Cẳng tay không vuông góc với sàn"
+    ],
+    "correct_form_cues": [
+      "Hạ tạ đến ngang ngực, góc cánh tay 45-60 độ",
+      "Đẩy tạ lên thẳng, hai tay cân bằng"
+    ]
+  },
+  {
+    "id": "db_shoulder_press",
+    "name_en": "DB Shoulder Press",
+    "name_vi": "Đẩy vai tạ đơn",
+    "primary_muscles": [
+      "FRONT_DELTOID",
+      "SIDE_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "TRAPEZIUS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "WRIST",
+      "ELBOW",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_shoulder_press.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_shoulder_press.svg",
+    "common_mistakes": [
+      "Võng lưng dưới khi đẩy lên",
+      "Hạ tạ quá sâu gây chấn thương"
+    ],
+    "correct_form_cues": [
+      "Siết core, không võng lưng",
+      "Hạ tạ đến ngang tai, đẩy lên thẳng"
+    ]
+  },
+  {
+    "id": "db_lateral_raise",
+    "name_en": "DB Lateral Raise",
+    "name_vi": "Đẩy vai ngang tạ đơn",
+    "primary_muscles": [
+      "SIDE_DELTOID"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/db_lateral_raise.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_lateral_raise.svg",
+    "common_mistakes": [
+      "Đung đưa cơ thể để nâng tạ",
+      "Nâng tạ quá cao hơn vai"
+    ],
+    "correct_form_cues": [
+      "Đứng thẳng, chỉ dùng vai nâng tạ",
+      "Nâng tạ đến ngang vai, không cao hơn"
+    ]
+  },
+  {
+    "id": "db_bicep_curl",
+    "name_en": "DB Bicep Curl",
+    "name_vi": "Căng双 đầu tay",
+    "primary_muscles": [
+      "BICEPS"
+    ],
+    "secondary_muscles": [
+      "FOREARMS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/db_bicep_curl.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_bicep_curl.svg",
+    "common_mistakes": [
+      "Đung đưa khuỷu tay ra trước",
+      "Dùng lưng để nâng tạ"
+    ],
+    "correct_form_cues": [
+      "Cố định khuỷu tay sát thân",
+      "Chỉ co tay, không di chuyển khuỷu"
+    ]
+  },
+  {
+    "id": "db_tricep_extension",
+    "name_en": "DB Tricep Extension",
+    "name_vi": "Ep三头 tay sau đầu",
+    "primary_muscles": [
+      "TRICEPS"
+    ],
+    "secondary_muscles": [
+      "FOREARMS",
+      "SHOULDER"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "SHOULDER",
+      "WRIST"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_tricep_extension.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_tricep_extension.svg",
+    "common_mistakes": [
+      "Khuỷu tay mở rộng ra hai bên",
+      "Hạ tạ quá nhanh không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Giữ khuỷu tay sát đầu, hướng lên trần",
+      "Hạ tạ chậm, kiểm soát toàn bộ hành trình"
+    ]
+  },
+  {
+    "id": "db_deadlift_romania",
+    "name_en": "Romanian Deadlift",
+    "name_vi": "Deadlift Rumani tạ đơn",
+    "primary_muscles": [
+      "HAMSTRINGS",
+      "GLUTES",
+      "LOWER_BACK"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "FOREARMS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "KNEE"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/db_deadlift_romania.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_deadlift_romania.svg",
+    "common_mistakes": [
+      "Lưng tròn khi cúi xuống",
+      "Gập đầu gối quá nhiều biến thành squat"
+    ],
+    "correct_form_cues": [
+      "Lưng thẳng, hất hông ra sau khi cúi",
+      "Gối hơi chùng, giữ cố định"
+    ]
+  },
+  {
+    "id": "band_row_seated",
+    "name_en": "Seated Band Row",
+    "name_vi": "Kéo dây kháng lực ngồi",
+    "primary_muscles": [
+      "LATS",
+      "RHOMBOIDS",
+      "TRAPEZIUS"
+    ],
+    "secondary_muscles": [
+      "BICEPS",
+      "REAR_DELTOID"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_row_seated.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_row_seated.svg",
+    "common_mistakes": [
+      "Kéo bằng tay thay vì lưng",
+      "Thân người ngả ra sau quá nhiều khi kéo"
+    ],
+    "correct_form_cues": [
+      "Siết bả vai kéo dây về phía hông",
+      "Giữ thân người thẳng, chỉ co khuỷu tay"
+    ]
+  },
+  {
+    "id": "band_chest_press",
+    "name_en": "Band Chest Press",
+    "name_vi": "Đẩy ngực dây kháng lực",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_UPPER",
+      "FRONT_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_chest_press.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_chest_press.svg",
+    "common_mistakes": [
+      "Đung đưa cơ thể để lấy đà đẩy",
+      "Khuỷu tay mở quá rộng"
+    ],
+    "correct_form_cues": [
+      "Đứng vững, đẩy tay về phía trước ngực",
+      "Khuỷu tay góc 45 độ so với thân"
+    ]
+  },
+  {
+    "id": "band_lateral_raise",
+    "name_en": "Band Lateral Raise",
+    "name_vi": "Đẩy vai ngang dây kháng lực",
+    "primary_muscles": [
+      "SIDE_DELTOID"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_lateral_raise.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_lateral_raise.svg",
+    "common_mistakes": [
+      "Dùng lưng để nâng dây",
+      "Nâng tay quá cao hơn vai"
+    ],
+    "correct_form_cues": [
+      "Đứng thẳng, chỉ dùng vai nâng",
+      "Nâng đến ngang vai, giữ 2 giây"
+    ]
+  },
+  {
+    "id": "band_bicep_curl",
+    "name_en": "Band Bicep Curl",
+    "name_vi": "Căng双 đầu dây kháng lực",
+    "primary_muscles": [
+      "BICEPS"
+    ],
+    "secondary_muscles": [
+      "FOREARMS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_bicep_curl.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_bicep_curl.svg",
+    "common_mistakes": [
+      "Dùng lưng để kéo dây",
+      "Thả dây về quá nhanh không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Cố định khuỷu tay sát thân",
+      "Kéo chậm 2 giây, thả chậm 2 giây"
+    ]
+  },
+  {
+    "id": "band_tricep_pushdown",
+    "name_en": "Band Tricep Pushdown",
+    "name_vi": "Ep三头 dây đẩy xuống",
+    "primary_muscles": [
+      "TRICEPS"
+    ],
+    "secondary_muscles": [
+      "FOREARMS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "WRIST",
+      "SHOULDER"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_tricep_pushdown.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_tricep_pushdown.svg",
+    "common_mistakes": [
+      "Khuỷu tay di chuyển ra trước",
+      "Dùng vai đẩy thay vì co tay"
+    ],
+    "correct_form_cues": [
+      "Cố định khuỷu tay sát thân",
+      "Chỉ co tay đẩy dây xuống"
+    ]
+  },
+  {
+    "id": "band_squat",
+    "name_en": "Band Squat",
+    "name_vi": "Squat dây kháng lực",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_squat.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_squat.svg",
+    "common_mistakes": [
+      "Đầu gối chụp vào trong",
+      "Dây trượt khỏi vai khi squat"
+    ],
+    "correct_form_cues": [
+      "Đầu gối theo mũi chân",
+      "Giữ dây cố định trên vai"
+    ]
+  },
+  {
+    "id": "band_glute_kickback",
+    "name_en": "Band Glute Kickback",
+    "name_vi": "Đạp mông dây kháng lực",
+    "primary_muscles": [
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "HIP",
+      "ANKLE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_glute_kickback.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_glute_kickback.svg",
+    "common_mistakes": [
+      "Võng lưng khi đá chân ra",
+      "Đá quá nhanh không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Giữ lưng thẳng, siết core",
+      "Đá chậm, siết mông ở điểm cuối"
+    ]
+  },
+  {
+    "id": "mountain_climber",
+    "name_en": "Mountain Climbers",
+    "name_vi": "Leo núi",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "QUADRICEPS",
+      "HAMSTRINGS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ANKLE"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/mountain_climber.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/mountain_climber.svg",
+    "common_mistakes": [
+      "Võng lưng dưới",
+      "Bật chân quá cao về phía ngực"
+    ],
+    "correct_form_cues": [
+      "Giữ hông thẳng không võng lưng",
+      "Chạy nhẹ nhàng, gót chân không chạm sàn"
+    ]
+  },
+  {
+    "id": "burpee_standard",
+    "name_en": "Burpees",
+    "name_vi": "Burpees",
+    "primary_muscles": [
+      "ABS",
+      "QUADRICEPS",
+      "CHEST_MID"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "TRICEPS",
+      "HAMSTRINGS",
+      "GLUTES",
+      "CALVES"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "KNEE",
+      "ANKLE",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/burpee_standard.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/burpee_standard.svg",
+    "common_mistakes": [
+      "Võng lưng khi ở tư thế plank",
+      "Thả người xuống không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Giữ lưng thẳng trong toàn bộ chuyển động",
+      "Hạ chậm, bật nhanh có kiểm soát"
+    ]
+  },
+  {
+    "id": "jumping_jack",
+    "name_en": "Jumping Jacks",
+    "name_vi": "Nhảy sao",
+    "primary_muscles": [
+      "CALVES",
+      "QUADRICEPS"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "ABS",
+      "GLUTES"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "ANKLE",
+      "KNEE",
+      "SHOULDER"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/jumping_jack.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/jumping_jack.svg",
+    "common_mistakes": [
+      "Đáp đất bằng gót chân",
+      "Chân tay không đồng bộ"
+    ],
+    "correct_form_cues": [
+      "Đáp đất bằng nửa trước bàn chân",
+      "Bật cùng lúc tay lên cao chân mở rộng"
+    ]
+  },
+  {
+    "id": "high_knees",
+    "name_en": "High Knees",
+    "name_vi": "Nâng cao đùi",
+    "primary_muscles": [
+      "ABS",
+      "QUADRICEPS",
+      "HIP_FLEXORS"
+    ],
+    "secondary_muscles": [
+      "CALVES",
+      "GLUTES",
+      "HAMSTRINGS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/high_knees.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/high_knees.svg",
+    "common_mistakes": [
+      "Võng lưng khi nâng đùi",
+      "Nâng đùi không đủ cao"
+    ],
+    "correct_form_cues": [
+      "Giữ thẳng lưng, siết core",
+      "Nâng đùi đến ngang hông"
+    ]
+  },
+  {
+    "id": "crunch_standard",
+    "name_en": "Crunches",
+    "name_vi": "Gập bụng cơ bản",
+    "primary_muscles": [
+      "ABS"
+    ],
+    "secondary_muscles": [
+      "OBLIQUES"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "NECK",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/crunch_standard.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/crunch_standard.svg",
+    "common_mistakes": [
+      "Kéo đầu bằng tay gây chấn thương cổ",
+      "Nâng lưng quá cao khỏi sàn"
+    ],
+    "correct_form_cues": [
+      "Tay nhẹ nhàng bên tai, không kéo cổ",
+      "Nâng vai khỏi sàn, siết bụng"
+    ]
+  },
+  {
+    "id": "crunch_bicycle",
+    "name_en": "Bicycle Crunches",
+    "name_vi": "Gập bụng xe đạp",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES"
+    ],
+    "secondary_muscles": [
+      "HIP_FLEXORS",
+      "QUADRICEPS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "NECK",
+      "LOWER_BACK",
+      "HIP"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/crunch_bicycle.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/crunch_bicycle.svg",
+    "common_mistakes": [
+      "Kéo cổ bằng tay",
+      "Chân đạp quá nhanh không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Tay bên tai, nâng vai khỏi sàn",
+      "Đạp chậm, xoay vai chạm đầu gối đối diện"
+    ]
+  },
+  {
+    "id": "leg_raise",
+    "name_en": "Leg Raises",
+    "name_vi": "Nâng chân bụng dưới",
+    "primary_muscles": [
+      "ABS",
+      "HIP_FLEXORS"
+    ],
+    "secondary_muscles": [
+      "QUADRICEPS",
+      "LOWER_BACK"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "HIP"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/leg_raise.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/leg_raise.svg",
+    "common_mistakes": [
+      "Võng lưng dưới khi nâng chân",
+      "Thả chân xuống quá nhanh"
+    ],
+    "correct_form_cues": [
+      "Ép lưng xuống sàn khi nâng chân",
+      "Hạ chân chậm, không chạm sàn"
+    ]
+  },
+  {
+    "id": "superman_hold",
+    "name_en": "Superman Hold",
+    "name_vi": "Siêu nhân",
+    "primary_muscles": [
+      "LOWER_BACK",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "RHOMBOIDS",
+      "HAMSTRINGS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "NECK",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/superman_hold.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/superman_hold.svg",
+    "common_mistakes": [
+      "Nâng tay chân quá cao gây võng lưng",
+      "Nín thở khi giữ tư thế"
+    ],
+    "correct_form_cues": [
+      "Nâng tay chân nhẹ nhàng, lưng thẳng",
+      "Thở đều khi giữ 3-5 giây"
+    ]
+  },
+  {
+    "id": "calf_raise",
+    "name_en": "Calf Raises",
+    "name_vi": "Nâng gót chân",
+    "primary_muscles": [
+      "CALVES"
+    ],
+    "secondary_muscles": [
+      "GLUTES",
+      "HAMSTRINGS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "ANKLE",
+      "KNEE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/calf_raise.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/calf_raise.svg",
+    "common_mistakes": [
+      "Hạ quá nhanh không kiểm soát",
+      "Đứng trên mặt phẳng không có bậc"
+    ],
+    "correct_form_cues": [
+      "Hạ chậm 2 giây, nâng nhanh 1 giây",
+      "Đứng trên mép bậc để dài hành trình"
+    ]
+  },
+  {
+    "id": "wall_sit",
+    "name_en": "Wall Sit",
+    "name_vi": "Ngồi tường",
+    "primary_muscles": [
+      "QUADRICEPS"
+    ],
+    "secondary_muscles": [
+      "GLUTES",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/wall_sit.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/wall_sit.svg",
+    "common_mistakes": [
+      "Đầu gối vượt quá mũi chân",
+      "Lưng không áp sát tường"
+    ],
+    "correct_form_cues": [
+      "Gối vuông góc 90 độ không vượt mũi chân",
+      "Lưng và hông áp sát tường"
+    ]
+  },
+  {
+    "id": "band_good_morning",
+    "name_en": "Band Good Morning",
+    "name_vi": "Chào sáng dây kháng lực",
+    "primary_muscles": [
+      "HAMSTRINGS",
+      "GLUTES",
+      "LOWER_BACK"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "KNEE"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/band_good_morning.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_good_morning.svg",
+    "common_mistakes": [
+      "Lưng tròn khi cúi xuống",
+      "Gập gối quá nhiều"
+    ],
+    "correct_form_cues": [
+      "Lưng thẳng, hất hông ra sau",
+      "Gối chỉ hơi chùng, giữ cố định"
+    ]
+  },
+  {
+    "id": "db_fly",
+    "name_en": "DB Fly",
+    "name_vi": "Đàn chim tạ đơn",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_LOWER"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "BICEPS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_fly.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_fly.svg",
+    "common_mistakes": [
+      "Hạ tạ quá sâu gây xô qhả vai",
+      "Co tay thay vì giữ cánh tay thẳng"
+    ],
+    "correct_form_cues": [
+      "Hạ tạ đến ngang vai, không sâu hơn",
+      "Giữ cánh tay hơi chùng, cố định góc"
+    ]
+  },
+  {
+    "id": "pike_push_up",
+    "name_en": "Pike Push-Up",
+    "name_vi": "Hít đất chữ V",
+    "primary_muscles": [
+      "FRONT_DELTOID",
+      "SIDE_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "WRIST",
+      "NECK"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/pike_push_up.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/pike_push_up.svg",
+    "common_mistakes": [
+      "Hông không cao đủ để tạo chữ V",
+      "Đầu chạm sàn lệch khỏi đường trung tâm"
+    ],
+    "correct_form_cues": [
+      "Nâng hông cao, tạo góc V với thân",
+      "Hạ đầu thẳng xuống giữa hai tay"
+    ]
+  },
+  {
+    "id": "inverted_row",
+    "name_en": "Inverted Row",
+    "name_vi": "Kéo ngược xà thấp",
+    "primary_muscles": [
+      "LATS",
+      "RHOMBOIDS",
+      "BICEPS"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "REAR_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "PULL_UP_BAR"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/inverted_row.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/inverted_row.svg",
+    "common_mistakes": [
+      "Lưng tròn khi kéo",
+      "Hông chùng xuống khi kéo lên"
+    ],
+    "correct_form_cues": [
+      "Giữ lưng thẳng, siết core",
+      "Kéo ngực chạm xà, siết bả vai"
+    ]
+  },
+  {
+    "id": "dead_bug",
+    "name_en": "Dead Bug",
+    "name_vi": "Bọ chết",
+    "primary_muscles": [
+      "ABS"
+    ],
+    "secondary_muscles": [
+      "OBLIQUES",
+      "QUADRICEPS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "NECK",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/dead_bug.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/dead_bug.svg",
+    "common_mistakes": [
+      "Lưng nhổ khỏi sàn khi duỗi chân",
+      "Nín thở khi thực hiện"
+    ],
+    "correct_form_cues": [
+      "Ép lưng xuống sàn toàn thời gian",
+      "Khởu thở khi duỗi chân"
+    ]
+  },
+  {
+    "id": "bird_dog",
+    "name_en": "Bird Dog",
+    "name_vi": "Chim chó",
+    "primary_muscles": [
+      "LOWER_BACK",
+      "ABS"
+    ],
+    "secondary_muscles": [
+      "GLUTES",
+      "TRAPEZIUS",
+      "RHOMBOIDS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "NECK",
+      "SHOULDER",
+      "HIP",
+      "KNEE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/bird_dog.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/bird_dog.svg",
+    "common_mistakes": [
+      "Võng lưng khi đưa tay chân ra",
+      "Mất thăng bằng, nghiêng thân"
+    ],
+    "correct_form_cues": [
+      "Giữ lưng thẳng, siết core",
+      "Đưa tay chân chậm, giữ thăng bằng"
+    ]
+  },
+  {
+    "id": "db_hammer_curl",
+    "name_en": "DB Hammer Curl",
+    "name_vi": "Căng búa tạ đơn",
+    "primary_muscles": [
+      "BICEPS",
+      "FOREARMS"
+    ],
+    "secondary_muscles": [
+      "SIDE_DELTOID",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/db_hammer_curl.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_hammer_curl.svg",
+    "common_mistakes": [
+      "Đung đưa khuỷu tay ra trước",
+      "Dùng lưng để nâng tạ"
+    ],
+    "correct_form_cues": [
+      "Cố định khuỷu tay sát thân",
+      "Nắm tạ như cầm búa, cổ tay thẳng"
+    ]
+  },
+  {
+    "id": "db_lunge",
+    "name_en": "DB Walking Lunges",
+    "name_vi": "Chùng chân bước tạ đơn",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_lunge.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_lunge.svg",
+    "common_mistakes": [
+      "Bước chân quá ngắn",
+      "Đầu gối trước vượt quá mũi chân"
+    ],
+    "correct_form_cues": [
+      "Bước chân đủ dài, gối trước 90 độ",
+      "Giọng thẳng thân trên, tạ dọc hai bên"
+    ]
+  },
+  {
+    "id": "band_pallof_press",
+    "name_en": "Band Pallof Press",
+    "name_vi": "Đẩy cơ bụng ngang dây",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "SHOULDER"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/band_pallof_press.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_pallof_press.svg",
+    "common_mistakes": [
+      "Xoay thân theo hướng kéo dây",
+      "Đẩy dây ra quá nhanh"
+    ],
+    "correct_form_cues": [
+      "Giữ thân thẳng không xoay",
+      "Đẩy chậm, giữ 2 giây ở điểm xa nhất"
+    ]
+  },
+  {
+    "id": "push_up_wide",
+    "name_en": "Wide Push-Up",
+    "name_vi": "Hít đất rộng",
+    "primary_muscles": [
+      "CHEST_MID",
+      "CHEST_UPPER"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_wide.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_wide.svg",
+    "common_mistakes": [
+      "Tay rộng quá mức gây chấn thương vai",
+      "Lưng võng khi hạ xuống"
+    ],
+    "correct_form_cues": [
+      "Tay rộng hơn vai 1.5 lần",
+      "Giữ lưng thẳng, core gồng"
+    ]
+  },
+  {
+    "id": "db_romanian_deadlift_single",
+    "name_en": "Single-Leg DB Romanian Deadlift",
+    "name_vi": "Deadlift Rumani 1 chân tạ đơn",
+    "primary_muscles": [
+      "HAMSTRINGS",
+      "GLUTES",
+      "LOWER_BACK"
+    ],
+    "secondary_muscles": [
+      "CALVES",
+      "ABS",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/db_romanian_deadlift_single.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_romanian_deadlift_single.svg",
+    "common_mistakes": [
+      "Lưng tròn khi cúi",
+      "Mất thăng bằng do hông xoay"
+    ],
+    "correct_form_cues": [
+      "Lưng thẳng, hông giữ ngang bằng",
+      "Hạ chậm, chân trụ hơi chùng gối"
+    ]
+  },
+  {
+    "id": "step_up_bodyweight",
+    "name_en": "Step-Ups",
+    "name_vi": "Bước lên bậc",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/step_up_bodyweight.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/step_up_bodyweight.svg",
+    "common_mistakes": [
+      "Đẩy bằng chân trụ dưới",
+      "Hạ xuống quá nhanh không kiểm soát"
+    ],
+    "correct_form_cues": [
+      "Đẩy bằng chân trên bậc",
+      "Hạ chậm, kiểm soát toàn bộ"
+    ]
+  },
+  {
+    "id": "db_step_up",
+    "name_en": "DB Step-Ups",
+    "name_vi": "Bước lên bậc tạ đơn",
+    "primary_muscles": [
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "secondary_muscles": [
+      "HAMSTRINGS",
+      "CALVES",
+      "ABS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "KNEE",
+      "ANKLE",
+      "HIP"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_step_up.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_step_up.svg",
+    "common_mistakes": [
+      "Đẩy bằng chân trụ dưới",
+      "Tạ đung đưa đập vào đùi"
+    ],
+    "correct_form_cues": [
+      "Đẩy bằng chân trên bậc",
+      "Giữ tạ cố định hai bên"
+    ]
+  },
+  {
+    "id": "push_up_decline",
+    "name_en": "Decline Push-Up",
+    "name_vi": "Hít đất chống chân cao",
+    "primary_muscles": [
+      "CHEST_UPPER",
+      "FRONT_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ANKLE"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_decline.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_decline.svg",
+    "common_mistakes": [
+      "Chân cao quá mức",
+      "Hông võng khi hạ xuống"
+    ],
+    "correct_form_cues": [
+      "Chân cao 30-45cm",
+      "Giữ thẳng từ vai đến gót chân"
+    ]
+  },
+  {
+    "id": "band_curl_hammer",
+    "name_en": "Band Hammer Curl",
+    "name_vi": "Căng búa dây kháng lực",
+    "primary_muscles": [
+      "BICEPS",
+      "FOREARMS"
+    ],
+    "secondary_muscles": [
+      "SIDE_DELTOID"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_curl_hammer.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_curl_hammer.svg",
+    "common_mistakes": [
+      "Khuỷu tay di chuyển ra trước",
+      "Thả dây về quá nhanh"
+    ],
+    "correct_form_cues": [
+      "Cố định khuỷu tay sát thân",
+      "Kéo chậm, thả chậm có kiểm soát"
+    ]
+  },
+  {
+    "id": "plank_high_to_low",
+    "name_en": "High-to-Low Plank",
+    "name_vi": "Tấm ván tay cao xuống thấp",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES",
+      "FRONT_DELTOID",
+      "TRICEPS"
+    ],
+    "secondary_muscles": [
+      "SHOULDER",
+      "GLUTES"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/plank_high_to_low.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/plank_high_to_low.svg",
+    "common_mistakes": [
+      "Võng lưng khi đổi tay chống",
+      "Hông lắc qua hai bên khi chuyển tư thế"
+    ],
+    "correct_form_cues": [
+      "Giữ hông thẳng, không lắc",
+      "Chuyển tay chậm, có kiểm soát"
+    ]
+  },
+  {
+    "id": "push_up_incline",
+    "name_en": "Incline Push-Up",
+    "name_vi": "Hít đất chống tay cao",
+    "primary_muscles": [
+      "CHEST_LOWER"
+    ],
+    "secondary_muscles": [
+      "CHEST_MID",
+      "FRONT_DELTOID",
+      "TRICEPS",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_incline.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_incline.svg",
+    "common_mistakes": [
+      "Hông võng khi hạ xuống",
+      "Tay chống quá cao"
+    ],
+    "correct_form_cues": [
+      "Tay chống độ cao 40-60cm",
+      "Giữ thẳng từ gót chân đến đội đầu"
+    ]
+  },
+  {
+    "id": "plank_reach",
+    "name_en": "Plank with Reach",
+    "name_vi": "Tấm ván vươn tay",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES",
+      "LOWER_BACK"
+    ],
+    "secondary_muscles": [
+      "GLUTES",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/plank_reach.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/plank_reach.svg",
+    "common_mistakes": [
+      "Hông lắc khi vươn tay",
+      "Võng lưng dưới"
+    ],
+    "correct_form_cues": [
+      "Giữ hông cố định không lắc",
+      "Vươn tay chậm, siết core"
+    ]
+  },
+  {
+    "id": "band_press_shoulder",
+    "name_en": "Band Shoulder Press",
+    "name_vi": "Đẩy vai dây kháng lực",
+    "primary_muscles": [
+      "FRONT_DELTOID",
+      "SIDE_DELTOID"
+    ],
+    "secondary_muscles": [
+      "TRICEPS",
+      "TRAPEZIUS"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "WRIST",
+      "ELBOW",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/band_press_shoulder.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_press_shoulder.svg",
+    "common_mistakes": [
+      "Võng lưng khi đẩy lên",
+      "Hạ dây quá sâu gây chấn thương"
+    ],
+    "correct_form_cues": [
+      "Siết core, lưng thẳng",
+      "Hạ dây đến ngang vai"
+    ]
+  },
+  {
+    "id": "db_cuban_press",
+    "name_en": "DB Cuban Press",
+    "name_vi": "Đẩy vai xoay ngoài tạ đơn",
+    "primary_muscles": [
+      "REAR_DELTOID",
+      "SIDE_DELTOID",
+      "ROTATOR_CUFF"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "FRONT_DELTOID"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW",
+      "WRIST"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/db_cuban_press.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_cuban_press.svg",
+    "common_mistakes": [
+      "Quay vai quá nhanh không kiểm soát",
+      "Dùng tạ quá nặng"
+    ],
+    "correct_form_cues": [
+      "Quay chậm có kiểm soát toàn bộ",
+      "Dùng tạ nhẹ, tập trung kỹ thuật"
+    ]
+  },
+  {
+    "id": "db_reverse_fly",
+    "name_en": "DB Reverse Fly",
+    "name_vi": "Đàn chim ngược tạ đơn",
+    "primary_muscles": [
+      "REAR_DELTOID",
+      "RHOMBOIDS"
+    ],
+    "secondary_muscles": [
+      "TRAPEZIUS",
+      "LOWER_BACK"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "SHOULDER",
+      "ELBOW",
+      "LOWER_BACK"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/db_reverse_fly.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_reverse_fly.svg",
+    "common_mistakes": [
+      "Lưng tròn khi cúi người",
+      "Nâng tạ quá cao hơn vai"
+    ],
+    "correct_form_cues": [
+      "Lưng thẳng, cúi 45 độ",
+      "Nâng tạ ngang vai, siết bả vai"
+    ]
+  }
+]
