@@ -2,7 +2,7 @@ package com.leanhome.core.data.mapper
 
 import com.leanhome.core.data.entities.ExerciseEntity
 import com.leanhome.core.data.entities.UserProfileEntity
-import com.leanhome.core.data.entities.WorkoutSessionEntity
+import com.leanhome.core.data.entities.WeightLogEntity
 import com.leanhome.core.domain.model.ActivityLevel
 import com.leanhome.core.domain.model.BodyArchetype
 import com.leanhome.core.domain.model.DifficultyLevel
@@ -18,7 +18,7 @@ import com.leanhome.core.domain.model.SessionStatus
 import com.leanhome.core.domain.model.SplitName
 import com.leanhome.core.domain.model.TargetMuscleGroup
 import com.leanhome.core.domain.model.UserProfile
-import com.leanhome.core.domain.model.WorkoutSession
+import com.leanhome.core.domain.model.WeightLog
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 
@@ -99,7 +99,7 @@ object EntityMappers {
         targetMuscleGroup = entity.target_muscle_group?.let {
             runCatching { TargetMuscleGroup.fromString(it) }.getOrNull()
         },
-        availableEquipment = parseEquipmentList(entity.available_equipment),
+        excludedExerciseIds = parseStringList(entity.excluded_exercise_ids),
         injuryFlags = parseJointList(entity.injury_flags),
         activityLevel = entity.activity_level?.let {
             runCatching { ActivityLevel.fromString(it) }.getOrNull() ?: ActivityLevel.SEDENTARY
@@ -124,7 +124,7 @@ object EntityMappers {
         body_shape = profile.bodyArchetype.name,
         fitness_goal = profile.fitnessGoal.name,
         target_muscle_group = profile.targetMuscleGroup?.name,
-        available_equipment = encodeStringList(profile.availableEquipment.map { it.name }),
+        excluded_exercise_ids = encodeStringList(profile.excludedExerciseIds),
         injury_flags = encodeStringList(profile.injuryFlags.map { it.name }),
         activity_level = profile.activityLevel.name,
         days_per_week = profile.daysPerWeek,
@@ -174,5 +174,21 @@ object EntityMappers {
             else encodeStringList(session.feedbackTags.map { it.name }),
         feedback_notes = session.feedbackNotes,
         created_at = session.createdAt,
+    )
+
+    // ── WeightLog ───────────────────────────────────────────────────────
+
+    fun weightLogEntityToDomain(entity: WeightLogEntity): WeightLog = WeightLog(
+        id = entity.id,
+        userId = entity.user_id,
+        weightKg = entity.weight_kg,
+        recordedAt = entity.recorded_at,
+    )
+
+    fun weightLogDomainToEntity(log: WeightLog): WeightLogEntity = WeightLogEntity(
+        id = log.id,
+        user_id = log.userId,
+        weight_kg = log.weightKg,
+        recorded_at = log.recordedAt,
     )
 }

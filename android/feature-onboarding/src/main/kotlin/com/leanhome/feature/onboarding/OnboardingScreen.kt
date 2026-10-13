@@ -40,7 +40,7 @@ import com.leanhome.feature.onboarding.steps.GoalSelectionStep
 import com.leanhome.feature.onboarding.steps.InjuryFlagsStep
 import com.leanhome.feature.onboarding.steps.ScheduleStep
 import com.leanhome.feature.onboarding.steps.ReviewSummaryStep
-import com.leanhome.feature.onboarding.steps.TimelineSliderStep
+import com.leanhome.feature.onboarding.steps.ExerciseSelectionStep
 import com.leanhome.feature.onboarding.steps.WhoBmiGaugeStep
 
 /**
@@ -51,7 +51,7 @@ import com.leanhome.feature.onboarding.steps.WhoBmiGaugeStep
 @Composable
 fun OnboardingScreen(
     viewModel: OnboardingViewModel = OnboardingViewModel(),
-    onComplete: () -> Unit,
+    onComplete: (userId: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val state by viewModel.state.collectAsState()
@@ -60,7 +60,7 @@ fun OnboardingScreen(
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
             when (effect) {
-                OnboardingEffect.OnboardingComplete -> onComplete()
+                is OnboardingEffect.OnboardingComplete -> onComplete(effect.userId)
             }
         }
     }
@@ -92,7 +92,7 @@ fun OnboardingScreen(
                 OnboardingStep.ARCHETYPE_PICKER -> ArchetypePickerStep(state, onIntent)
                 OnboardingStep.GOAL_SELECTION -> GoalSelectionStep(state, onIntent)
                 OnboardingStep.EQUIPMENT_SELECTION -> EquipmentSelectionStep(state, onIntent)
-                OnboardingStep.INJURY_FLAGS -> InjuryFlagsStep(state, onIntent)
+                OnboardingStep.EXERCISE_SELECTION -> ExerciseSelectionStep(state, onIntent)
                 OnboardingStep.SCHEDULE -> ScheduleStep(state, onIntent)
                 OnboardingStep.TIMELINE_SLIDER -> TimelineSliderStep(state, onIntent, engine)
                 OnboardingStep.REVIEW_SUMMARY -> ReviewSummaryStep(state, onIntent)

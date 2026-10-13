@@ -255,4 +255,70 @@ class EnergyBalanceEngine {
         caloricTarget = tdee,
         skipTimeline = true,
     )
+
+    // ── Goal Projection ─────────────────────────────────────────────────
+
+    data class GoalProjection(
+        val estimatedDays: Int,
+        val projectedDate: Long,
+        val dailyDeficit: Double,
+        val isClamped: Boolean,
+        val effectiveDailyDeficit: Double,
+    )
+
+    /**
+     * Project the date by which the user will reach their target weight,
+     * given their intended daily deficit (calculated from the onboarding
+     * timeline selection or the most recent weigh-in trend).
+     *
+     * When [dailyDeficitKcal] exceeds the safe ceiling derived from [tdee],
+     * the deficit is clamped to [maxSafeDailyDeficit] and the projected
+     * date is recomputed using the clamped deficit so the displayed target
+     * stays physiologically achievable.
+     *
+     * @param currentWeightKg current body weight (kg)
+     * @param targetWeightKg target body weight (kg); when >= current, the
+     *   goal is treated as already reached (zero-day projection)
+     * @param dailyDeficitKcal intended daily caloric deficit (kcal/day)
+     * @param tdee current TDEE (kcal/day) used for safety clamping; null
+     *   skips the safety clamp and uses the raw deficit
+     * @param now epoch millis marking the projection start point
+     */
+    fun projectGoalDate(
+        currentWeightKg: Double,
+        targetWeightKg: Double,
+        dailyDeficitKcal: Double,
+        tdee: Double? = null,
+        now: Long,
+    ): GoalProjection {
+        val weightToLose = (currentWeightKg - targetWeightKg).coerceAtLeast(0.0)
+        if (weightToLose <= 0.0 || dailyDeficitKcal <= 0.0) {
+            return GoalProjection(
+                estimatedDays = 0,
+                projectedDate = now,
+                dailyDeficit = 0.0,
+                isClamped = false,
+                effectiveDailyDeficit = 0.0,
+            )
+        }
+        val maxSafe = tdee?.let { maxSafeDailyDeficit(tdee) }
+        val isClamped = maxSafe != null && dailyDeficitKcal > maxSafe
+        val effective = maxSafe?.let { minOf(dailyDeficitKcal, it) } ?: dailyDeficitKcal
+
+        // days = (weight_to_lose * KCAL_PER_KG_FAT) / effective_daily_deficit
+        val days = (weightToLose * KCAL_PER_KG_FAT) / effective
+        // Round up so the user sees a non-trivial date; floor at 1 day while
+        // weight remains to be lost and the deficit is non-zero.
+        val estimatedDays = days.toInt().let { if (it < 1) 1 else it }
+
+        val projectedDate = now + estimatedDays.toLong() * 86_400_000L
+
+        return GoalProjection(
+            estimatedDays = estimatedDays,
+            projectedDate = projectedDate,
+            dailyDeficit = dailyDeficitKcal,
+            isClamped = isClamped,
+            effectiveDailyDeficit = effective,
+        )
+    }
 }

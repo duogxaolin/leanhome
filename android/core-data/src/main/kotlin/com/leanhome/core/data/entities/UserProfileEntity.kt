@@ -22,7 +22,7 @@ data class UserProfileEntity(
     val fitness_goal: String,
     val target_muscle_group: String?,
     val available_equipment: String, // JSON array
-    val injury_flags: String, // JSON array
+    val excluded_exercise_ids: String = "[]", // JSON array of exercise IDs
     val activity_level: String = "SEDENTARY",
     val days_per_week: Int,
     val daily_time_minutes: Int,

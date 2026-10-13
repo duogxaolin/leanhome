@@ -6,7 +6,7 @@ import com.leanhome.core.domain.model.Equipment
 import com.leanhome.core.domain.model.FitnessGoal
 import com.leanhome.core.domain.model.Gender
 import com.leanhome.core.domain.model.Joint
-import com.leanhome.core.domain.model.TargetMuscleGroup
+import com.leanhome.core.domain.model.Exercise
 
 /**
  * MVI Intent — user actions that trigger state transitions.
@@ -27,7 +27,9 @@ sealed class OnboardingIntent {
     data class ActivityLevelChanged(val value: ActivityLevel) : OnboardingIntent()
     data class DaysPerWeekChanged(val value: Int) : OnboardingIntent()
     data class DailyTimeChanged(val value: Int) : OnboardingIntent()
-    data class TimelineDaysChanged(val value: Int) : OnboardingIntent()
+    data class TargetWeightChanged(val value: Double?) : OnboardingIntent()
+    data class ExcludedExerciseToggled(val exerciseId: String) : OnboardingIntent()
+    data class CatalogExercisesLoaded(val exercises: List<Exercise>) : OnboardingIntent()
     object GoToNextStep : OnboardingIntent()
     object GoToPrevStep : OnboardingIntent()
     object CompleteOnboarding : OnboardingIntent()
@@ -37,5 +39,6 @@ sealed class OnboardingIntent {
  * One-time effects (navigation, etc.) emitted outside of state.
  */
 sealed class OnboardingEffect {
-    object OnboardingComplete : OnboardingEffect()
+    /** Onboarding finished and the profile + weekly plan were persisted. */
+    data class OnboardingComplete(val userId: String) : OnboardingEffect()
 }

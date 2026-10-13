@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,6 +90,22 @@ fun TimelineSliderStep(
             steps = 50,
         )
 
+        // Target weight — user-entered, replaces the previous hardcoded
+        // 5% loss. The engine projects the goal date from this value and
+        // the chosen deficit below.
+        Text("Target weight (kg)", style = MaterialTheme.typography.titleMedium)
+        OutlinedTextField(
+            value = state.targetWeightKg?.let { "%.1f".format(it) } ?: "",
+            onValueChange = { entered ->
+                val parsed = entered.trim().toDoubleOrNull()
+                onIntent(OnboardingIntent.TargetWeightChanged(parsed))
+            },
+            label = { Text("e.g. ${"%.1f".format(state.weightKg * 0.95)}") },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth(),
+            isError = state.errors.containsKey("targetWeightKg"),
+            supportingText = state.errors["targetWeightKg"]?.let { { Text(it) } },
+        )
         // Show deficit info
         state.deficitResult?.let { result ->
             when (result.warningLevel) {
@@ -147,6 +163,37 @@ fun TimelineSliderStep(
                 }
             }
         }
+
+        // Projected goal achievement date — computed by the engine from the
+        // chosen deficit clamped to the safe ceiling.
+        state.projectedGoalDate?.let { projection ->
+            if (projection.estimatedDays > 0) {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    ),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text("Projected goal date", style = MaterialTheme.typography.titleMedium)
+                        val dateText = java.text.SimpleDateFormat("MMM d, yyyy", java.util.Locale.getDefault())
+                            .format(java.util.Date(projection.projectedDate))
+                        Text(
+                            "At this rate, you'll reach your goal on $dateText " +
+                                "(${projection.estimatedDays} days).",
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                        if (projection.isClamped) {
+                            Text(
+                                "Deficit clamped to the safe ceiling " +
+                                    "(${"%.0f".format(projection.effectiveDailyDeficit)} kcal/day).",
+                                style = MaterialTheme.typography.bodySmall,
+                            )
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -176,12 +223,15 @@ fun ReviewSummaryStep(
                     style = MaterialTheme.typography.bodyMedium)
                 Text("Injuries: ${state.injuryFlags.joinToString { it.name }.ifEmpty { "None" }}",
                     style = MaterialTheme.typography.bodyMedium)
+                state.excludedExerciseIds.takeIf { it.isNotEmpty() }?.let {
+                    Text("Excluded exercises: ${it.size}", style = MaterialTheme.typography.bodyMedium)
+                }
                 Text("Days per week: ${state.daysPerWeek}", style = MaterialTheme.typography.bodyMedium)
                 Text("Daily time: ${state.dailyTimeMinutes} min", style = MaterialTheme.typography.bodyMedium)
                 state.bmi?.let { Text("BMI: %.1f".format(it), style = MaterialTheme.typography.bodyMedium) }
                 state.bmiClassification?.let { Text("Category: ${it.label}", style = MaterialTheme.typography.bodyMedium) }
                 if (state.fitnessGoal == FitnessGoal.FAT_LOSS || state.fitnessGoal == FitnessGoal.WEIGHT_CUT) {
-                    Text("Timeline: ${state.timelineDays} days", style = MaterialTheme.typography.bodyMedium)
+                    state.targetWeightKg?.let { Text("Target weight: ${"%.1f".format(it)} kg", style = MaterialTheme.typography.bodyMedium) }
                 }
             }
         }

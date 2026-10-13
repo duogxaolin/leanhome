@@ -8,7 +8,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.layout.Row
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,12 +30,16 @@ fun WorkoutListScreen(
     userId: String,
     repository: WorkoutSessionRepository,
     onSelect: (WorkoutSession) -> Unit,
+    onOpenDashboard: () -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
     val sessions by repository.getSessionsByUser(userId).collectAsStateWithLifecycle(initialValue = emptyList())
 
     Column(modifier = modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("Your Workouts", style = MaterialTheme.typography.headlineMedium)
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("Your Workouts", style = MaterialTheme.typography.headlineMedium)
+            OutlinedButton(onClick = onOpenDashboard) { Text("Progress") }
+        }
 
         if (sessions.isEmpty()) {
             Text("No workouts yet — finish onboarding to generate your personalized plan.",

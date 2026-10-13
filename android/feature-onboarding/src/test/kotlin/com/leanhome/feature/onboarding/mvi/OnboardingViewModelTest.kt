@@ -133,6 +133,7 @@ class OnboardingViewModelTest {
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → GOAL_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → EQUIPMENT_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → INJURY_FLAGS
+        vm.handleIntent(OnboardingIntent.GoToNextStep) // → EXERCISE_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → SCHEDULE
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → skip TIMELINE_SLIDER → REVIEW_SUMMARY
 
@@ -148,6 +149,7 @@ class OnboardingViewModelTest {
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → GOAL_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → EQUIPMENT_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → INJURY_FLAGS
+        vm.handleIntent(OnboardingIntent.GoToNextStep) // → EXERCISE_SELECTION
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → SCHEDULE
         vm.handleIntent(OnboardingIntent.GoToNextStep) // → TIMELINE_SLIDER (not skipped for FAT_LOSS)
         assertEquals(OnboardingStep.TIMELINE_SLIDER, vm.state.value.step)

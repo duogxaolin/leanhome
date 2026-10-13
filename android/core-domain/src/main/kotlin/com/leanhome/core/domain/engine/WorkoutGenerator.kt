@@ -67,14 +67,18 @@ class WorkoutGenerator {
      * 1. Equipment constraint: ALL required_equipment must be in user's set.
      * 2. Injury exclusion: exclude exercises whose contraindicated_joints
      *    overlap with user's injury flags.
+     * 3. User curation: exclude exercises the user explicitly marked to omit.
      */
     fun filterExercises(
         exercises: List<Exercise>,
         userEquipment: Set<Equipment>,
         injuryFlags: Set<Joint>,
+        excludedExerciseIds: Set<String> = emptySet(),
     ): List<Exercise> {
         return exercises.filter { ex ->
-            ex.isAvailableWith(userEquipment) && !ex.isContraindicatedFor(injuryFlags)
+            ex.isAvailableWith(userEquipment) &&
+                !ex.isContraindicatedFor(injuryFlags) &&
+            ex.id !in excludedExerciseIds
         }
     }
 
@@ -229,6 +233,14 @@ class WorkoutGenerator {
      * Selects 4-7 exercises: 1 primary compound, 2 secondary compound,
      * 2-3 isolation/accessory movements targeting the user's focus.
      * Maintains compound balance across the full body.
+     *
+     * @param excludedExerciseIds user-curated exclusions to drop from the
+     *   candidate pool in addition to the standard equipment/injury filters.
+     * @param adjustmentPct fatigue-based volume adjustment. A negative value
+     *   (e.g. -10) triggers a deload that reduces each exercise's working-set
+     *   count by [adjustmentPct] percent (floored at 2 sets). A positive value
+     *   (e.g. +20) triggers a progressive overload that adds +1 rep to every
+     *   set of every PRIMARY_COMPOUND movement. Zero is a sustain.
      */
     fun generateSession(
         splitName: SplitName,
@@ -236,9 +248,11 @@ class WorkoutGenerator {
         userEquipment: Set<Equipment>,
         injuryFlags: Set<Joint>,
         profile: UserProfile,
+        excludedExerciseIds: Set<String> = emptySet(),
+        adjustmentPct: Int = 0,
     ): SessionPlan {
-        // Step 1: filter by equipment and injury
-        val filtered = filterExercises(candidateExercises, userEquipment, injuryFlags)
+        // Step 1: filter by equipment, injury and user exclusions.
+        val filtered = filterExercises(candidateExercises, userEquipment, injuryFlags, excludedExerciseIds)
 
         // Step 2: Determine target muscles for this split
         val targetGroups = musclesForSplit(splitName)
@@ -268,9 +282,12 @@ class WorkoutGenerator {
             profile = profile,
         )
 
+        // Step 7: Apply fatigue-based auto-regulation to the selected work.
+        val adjusted = applyFatigueAdjustment(selected, adjustmentPct)
+
         return SessionPlan(
             splitName = splitName,
-            exercises = selected.map { ex ->
+            exercises = adjusted.map { ex ->
                 SessionExerciseSpec(
                     exercise = ex.exercise,
                     sets = ex.sets,
@@ -280,6 +297,38 @@ class WorkoutGenerator {
                 )
             }
         )
+    }
+
+    /**
+     * Apply fatigue-driven deload/overload to the selected exercises.
+     *
+     * Deload (adjustmentPct < 0): reduce each exercises planned sets by
+     * |adjustmentPct| percent, rounded down, with a hard floor of 2 sets so
+     * strength movements keep a meaningful stimulus.
+     *
+     * Overload (adjustmentPct > 0): add 1 rep to every set of every primary
+     * compound movement (the spec requirement: "+1 rep to primary compound").
+     *
+     * Sustain (adjustmentPct == 0): leave the plan untouched.
+     */
+    private fun applyFatigueAdjustment(
+        selected: List<SelectedExercise>,
+        adjustmentPct: Int,
+    ): List<SelectedExercise> {
+        if (adjustmentPct == 0) return selected
+        return selected.map { ex ->
+            if (adjustmentPct < 0) {
+                val reduction = ex.sets * (-adjustmentPct) / 100
+                val deloadedSets = (ex.sets - reduction).coerceAtLeast(2)
+                ex.copy(sets = deloadedSets)
+            } else {
+                if (ex.role == ExerciseRole.PRIMARY_COMPOUND) {
+                    ex.copy(reps = ex.reps + 1)
+                } else {
+                    ex
+                }
+            }
+        }
     }
 
     private data class SelectedExercise(

@@ -15,6 +15,7 @@ data class UserProfile(
     val fitnessGoal: FitnessGoal,
     val targetMuscleGroup: TargetMuscleGroup? = null,
     val availableEquipment: List<Equipment>,
+    val excludedExerciseIds: List<String> = emptyList(),
     val injuryFlags: List<Joint>,
     val activityLevel: ActivityLevel = ActivityLevel.SEDENTARY,
     val daysPerWeek: Int,

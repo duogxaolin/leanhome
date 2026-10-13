@@ -10,13 +10,18 @@ import com.leanhome.core.domain.model.FitnessGoal
 import com.leanhome.core.domain.model.Joint
 import com.leanhome.core.domain.model.Gender
 import com.leanhome.core.domain.model.TargetMuscleGroup
+import com.leanhome.core.domain.repository.ExerciseRepository
+import com.leanhome.core.domain.repository.UserProfileRepository
+import com.leanhome.core.domain.usecase.BuildProfileUseCase
+import com.leanhome.core.domain.usecase.GenerateWeeklyPlanUseCase
+import com.leanhome.core.domain.usecase.OnboardingInput
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 /**
  * MVI ViewModel for the multi-step onboarding flow.
@@ -28,14 +33,24 @@ import kotlinx.coroutines.launch
  *   4. GOAL_SELECTION — maintenance / fat loss / weight cut / target zone
  *   5. EQUIPMENT_SELECTION — checkbox set of available equipment
  *   6. INJURY_FLAGS — checkbox set of injury joints
- *   7. SCHEDULE — days per week, daily time minutes
- *   8. TIMELINE_SLIDER — only for fat loss / weight cut; safety warnings
- *   9. REVIEW_SUMMARY — final review and submit
+ *   7. EXERCISE_SELECTION — browse filtered catalog, toggle exclusions
+ *   8. SCHEDULE — days per week, daily time minutes
+ *   9. TIMELINE_SLIDER — only for fat loss / weight cut; safety warnings
+ *  10. REVIEW_SUMMARY — final review and submit
  *
  * For HEALTH_MAINTENANCE: timeline slider is SKIPPED (zero deficit).
+ *
+ * On completion the ViewModel persists the profile via
+ * [UserProfileRepository], generates the first weekly plan with
+ * [GenerateWeeklyPlanUseCase], and emits [OnboardingEffect.OnboardingComplete]
+ * carrying the new profile id so the host can navigate to the workout list.
  */
 class OnboardingViewModel(
     private val engine: EnergyBalanceEngine = EnergyBalanceEngine(),
+    private val exerciseRepository: ExerciseRepository? = null,
+    private val userProfileRepository: UserProfileRepository? = null,
+    private val generateWeeklyPlan: GenerateWeeklyPlanUseCase? = null,
+    private val buildProfile: BuildProfileUseCase = BuildProfileUseCase(),
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(OnboardingState())
@@ -111,11 +126,36 @@ class OnboardingViewModel(
                 if (intent.value in current) current.remove(intent.value) else current.add(intent.value)
                 st.copy(injuryFlags = current)
             }
+            is OnboardingIntent.TargetWeightChanged -> {
+                _state.update { st ->
+                    val errors = when {
+                        intent.value == null -> st.errors - "targetWeightKg"
+                        intent.value >= st.weightKg ->
+                            st.errors + ("targetWeightKg" to "Target must be below your current weight")
+                        intent.value < OnboardingState.MIN_WEIGHT ->
+                            st.errors + ("targetWeightKg" to "Target must be at least ${OnboardingState.MIN_WEIGHT} kg")
+                        else -> st.errors - "targetWeightKg"
+                    }
+                    st.copy(targetWeightKg = intent.value, errors = errors, projectedGoalDate = null)
+                }
+                if (_state.value.step == OnboardingStep.TIMELINE_SLIDER) computeTimelineWarnings()
+            }
+            is OnboardingIntent.ExcludedExerciseToggled -> _state.update { st ->
+                val current = st.excludedExerciseIds.toMutableSet()
+                if (intent.exerciseId in current) current.remove(intent.exerciseId) else current.add(intent.exerciseId)
+                st.copy(excludedExerciseIds = current)
+            }
+            is OnboardingIntent.CatalogExercisesLoaded -> _state.update { st ->
+                // Cache the full catalog. The selection screen filters by
+                // equipment + injury; excluded IDs apply on top.
+                st.copy(catalogExercises = intent.exercises)
+            }
             is OnboardingIntent.ActivityLevelChanged -> _state.update { it.copy(activityLevel = intent.value) }
             is OnboardingIntent.DaysPerWeekChanged -> _state.update { it.copy(daysPerWeek = intent.value) }
             is OnboardingIntent.DailyTimeChanged -> _state.update { it.copy(dailyTimeMinutes = intent.value) }
-            is OnboardingIntent.TimelineDaysChanged -> _state.update { st ->
-                st.copy(timelineDays = intent.value, safetyWarning = computeSafetyWarning(st.copy(timelineDays = intent.value)))
+            is OnboardingIntent.TimelineDaysChanged -> {
+                _state.update { it.copy(timelineDays = intent.value) }
+                if (_state.value.step == OnboardingStep.TIMELINE_SLIDER) computeTimelineWarnings()
             }
             OnboardingIntent.GoToNextStep -> goToNextStep()
             OnboardingIntent.GoToPrevStep -> goToPrevStep()
@@ -135,13 +175,34 @@ class OnboardingViewModel(
             return
         }
 
-        // If entering TIMELINE_SLIDER step, compute deficit & safety warnings.
         val next = stepAfter(s.step)
+
+        // If entering EXERCISE_SELECTION, load the catalog once so the
+        // selection screen can render the candidate exercises filtered by
+        // the user's equipment + injury flags.
+        if (next == OnboardingStep.EXERCISE_SELECTION && s.catalogExercises.isEmpty()) {
+            loadCatalogExercises()
+        }
+
+        // If entering TIMELINE_SLIDER step, seed a default target weight
+        // (5% below current) when the user hasn't picked one yet, then
+        // compute the deficit and projected goal date.
         if (next == OnboardingStep.TIMELINE_SLIDER) {
+            if (_state.value.targetWeightKg == null) {
+                _state.update { it.copy(targetWeightKg = ((it.weightKg * 0.95) * 10).roundToInt() / 10.0) }
+            }
             computeTimelineWarnings()
         }
         if (next != null) {
             _state.update { it.copy(step = next) }
+        }
+    }
+
+    private fun loadCatalogExercises() {
+        val repo = exerciseRepository ?: return
+        viewModelScope.launch {
+            val exercises = repo.getAllOnce()
+            handleIntent(OnboardingIntent.CatalogExercisesLoaded(exercises))
         }
     }
 
@@ -157,9 +218,15 @@ class OnboardingViewModel(
         if (s.fitnessGoal != FitnessGoal.FAT_LOSS && s.fitnessGoal != FitnessGoal.WEIGHT_CUT) return
         val bmr = engine.calculateBmr(s.gender, s.age, s.weightKg, s.heightCm)
         val tdee = engine.calculateTdee(bmr, s.activityLevel)
-        val targetWeightLoss = s.weightKg - (s.weightKg * 0.95) // 5% target
+        val targetWeight = s.targetWeightKg
+        val targetWeightLoss = if (targetWeight != null) {
+            (s.weightKg - targetWeight).coerceAtLeast(0.0)
+        } else {
+            // Fallback while the user has not yet entered a target: a 5% loss.
+            s.weightKg - (s.weightKg * 0.95)
+        }
         val result = engine.evaluateDeficit(
-            targetWeightLossKg = if (s.fitnessGoal == FitnessGoal.WEIGHT_CUT) 5.0 else 4.0,
+            targetWeightLossKg = targetWeightLoss,
             targetDays = s.timelineDays,
             tdee = tdee,
             weightKg = s.weightKg,
@@ -173,7 +240,18 @@ class OnboardingViewModel(
                     "The safe maximum is ${java.text.DecimalFormat("#.#").format(result.clampedDeficit)} kcal/day. " +
                     "Dietary intervention required. Muscle loss risk."
         }
-        _state.update { it.copy(deficitResult = result, safetyWarning = safetyText) }
+        // Project the goal date from the planned daily deficit, clamped by
+        // the safe ceiling so the displayed date is physiologically achievable.
+        val projection = if (targetWeight != null && targetWeight < s.weightKg) {
+            engine.projectGoalDate(
+                currentWeightKg = s.weightKg,
+                targetWeightKg = targetWeight,
+                dailyDeficitKcal = result.dailyDeficit,
+                tdee = tdee,
+                now = System.currentTimeMillis(),
+            )
+        } else null
+        _state.update { it.copy(deficitResult = result, safetyWarning = safetyText, projectedGoalDate = projection) }
     }
 
     private fun computeSafetyWarning(s: OnboardingState): String? {
@@ -211,6 +289,18 @@ class OnboardingViewModel(
                 if (daysPerWeek !in 2..6) errors["daysPerWeek"] = "2-6 days"
                 if (dailyTimeMinutes !in 15..120) errors["dailyTimeMinutes"] = "15-120 min"
             }
+            if (step.ordinal >= OnboardingStep.TIMELINE_SLIDER.ordinal) {
+                if (fitnessGoal == FitnessGoal.FAT_LOSS || fitnessGoal == FitnessGoal.WEIGHT_CUT) {
+                    val target = targetWeightKg
+                    if (target == null) {
+                        errors["targetWeightKg"] = "Enter a target weight"
+                    } else if (target >= weightKg) {
+                        errors["targetWeightKg"] = "Target must be below your current weight"
+                    } else if (target < OnboardingState.MIN_WEIGHT) {
+                        errors["targetWeightKg"] = "Target must be at least ${OnboardingState.MIN_WEIGHT} kg"
+                    }
+                }
+            }
         }
 
         _state.update { it.copy(errors = errors) }
@@ -222,7 +312,39 @@ class OnboardingViewModel(
         if (!validate(s)) return
         _state.update { it.copy(isComplete = true) }
         viewModelScope.launch {
-            _effects.send(OnboardingEffect.OnboardingComplete)
+            val profileRepo = userProfileRepository
+            val planGenerator = generateWeeklyPlan
+            if (profileRepo != null && planGenerator != null) {
+                // Build the domain profile, persist it, and generate the first
+                // weekly plan so the workout list is populated immediately.
+                val input = OnboardingInput(
+                    name = s.name,
+                    age = s.age,
+                    gender = s.gender,
+                    heightCm = s.heightCm,
+                    weightKg = s.weightKg,
+                    countryCode = s.countryCode,
+                    bodyArchetype = s.bodyArchetype,
+                    fitnessGoal = s.fitnessGoal,
+                    targetMuscleGroup = s.targetMuscleGroup,
+                    availableEquipment = s.availableEquipment,
+                    excludedExerciseIds = s.excludedExerciseIds.toList(),
+                    injuryFlags = s.injuryFlags,
+                    activityLevel = s.activityLevel,
+                    daysPerWeek = s.daysPerWeek,
+                    dailyTimeMinutes = s.dailyTimeMinutes,
+                    targetWeightKg = s.targetWeightKg,
+                    timelineDays = s.timelineDays,
+                )
+                val profile = buildProfile(input, System.currentTimeMillis())
+                profileRepo.insert(profile)
+                planGenerator.invoke(profile)
+                _effects.send(OnboardingEffect.OnboardingComplete(profile.id))
+            } else {
+                // No persistence wired (tests / preview) — emit a synthetic
+                // completion so the host can still observe the effect.
+                _effects.send(OnboardingEffect.OnboardingComplete(java.util.UUID.randomUUID().toString()))
+            }
         }
     }
 }

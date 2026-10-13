@@ -5,10 +5,10 @@ import com.leanhome.core.data.database.DatabaseProvider
 import com.leanhome.core.data.db.LeanHomeDatabase
 import com.leanhome.core.data.repository.ExerciseRepositoryImpl
 import com.leanhome.core.data.repository.UserProfileRepositoryImpl
-import com.leanhome.core.data.repository.WorkoutSessionRepositoryImpl
+import com.leanhome.core.data.repository.WeightLogRepositoryImpl
 import com.leanhome.core.domain.repository.ExerciseRepository
 import com.leanhome.core.domain.repository.UserProfileRepository
-import com.leanhome.core.domain.repository.WorkoutSessionRepository
+import com.leanhome.core.domain.repository.WeightLogRepository
 
 /**
  * Lightweight dependency container — wires up Room database and repositories.
@@ -28,5 +28,9 @@ class LeanHomeDataContainer(private val context: Context) {
 
     val workoutSessionRepository: WorkoutSessionRepository by lazy {
         WorkoutSessionRepositoryImpl(database.workoutSessionDao())
+    }
+
+    val weightLogRepository: WeightLogRepository by lazy {
+        WeightLogRepositoryImpl(database.weightLogDao())
     }
 }

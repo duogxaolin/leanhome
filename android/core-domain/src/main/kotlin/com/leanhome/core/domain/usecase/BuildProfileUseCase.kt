@@ -24,10 +24,13 @@ data class OnboardingInput(
     val fitnessGoal: FitnessGoal = FitnessGoal.HEALTH_MAINTENANCE,
     val targetMuscleGroup: com.leanhome.core.domain.model.TargetMuscleGroup? = null,
     val availableEquipment: List<Equipment> = listOf(Equipment.BODYWEIGHT_ONLY),
+    val excludedExerciseIds: List<String> = emptyList(),
     val injuryFlags: List<Joint> = emptyList(),
     val activityLevel: ActivityLevel = ActivityLevel.SEDENTARY,
     val daysPerWeek: Int = 3,
     val dailyTimeMinutes: Int = 30,
+    val targetWeightKg: Double? = null,
+    val timelineDays: Int? = null,
 )
 
 data class ValidationResult(
@@ -79,6 +82,23 @@ object OnboardingValidator {
             errors["dailyTimeMinutes"] = "Daily time must be ${UserProfile.MIN_TIME_MINUTES}-${UserProfile.MAX_TIME_MINUTES} min"
         }
 
+        // Target weight: only required for fat-loss / weight-cut goals. Must
+        // be below the current weight (you cannot gain toward a loss target)
+        // and above the physiological minimum enforced by the engine.
+        if (input.fitnessGoal == FitnessGoal.FAT_LOSS || input.fitnessGoal == FitnessGoal.WEIGHT_CUT) {
+            val target = input.targetWeightKg
+            if (target == null) {
+                errors["targetWeightKg"] = "Enter a target weight"
+            } else if (target >= input.weightKg) {
+                errors["targetWeightKg"] = "Target must be below your current weight"
+            } else if (target < UserProfile.MIN_WEIGHT) {
+                errors["targetWeightKg"] = "Target must be at least ${UserProfile.MIN_WEIGHT} kg"
+            }
+            if (input.timelineDays == null || input.timelineDays <= 0) {
+                errors["timelineDays"] = "Choose a timeline (days)"
+            }
+        }
+
         return ValidationResult(errors.isEmpty(), errors)
     }
 }
@@ -104,14 +124,17 @@ class BuildProfileUseCase(private val engine: EnergyBalanceEngine = EnergyBalanc
             fitnessGoal = input.fitnessGoal,
             targetMuscleGroup = input.targetMuscleGroup,
             availableEquipment = input.availableEquipment,
+            excludedExerciseIds = input.excludedExerciseIds,
             injuryFlags = input.injuryFlags,
             activityLevel = input.activityLevel,
             daysPerWeek = input.daysPerWeek,
             dailyTimeMinutes = input.dailyTimeMinutes,
             targetWeightKg = if (input.fitnessGoal == FitnessGoal.FAT_LOSS || input.fitnessGoal == FitnessGoal.WEIGHT_CUT) {
-                input.weightKg - 5.0
+                input.targetWeightKg
             } else null,
-            targetDays = 60,
+            targetDays = if (input.fitnessGoal == FitnessGoal.FAT_LOSS || input.fitnessGoal == FitnessGoal.WEIGHT_CUT) {
+                input.timelineDays
+            } else null,
             bmr = bmr,
             tdee = tdee,
             createdAt = createdAt,
