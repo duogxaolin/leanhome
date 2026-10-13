@@ -2,15 +2,15 @@
 
 ## 1. Domain Entities & Mathematical Test Vectors
 
-- [ ] 1.1 Define shared JSON schemas for Exercise, UserProfile, WorkoutSession, and BodyArchetype
-- [ ] 1.2 Write canonical mathematical calculation specifications (Mifflin-St Jeor BMR, TDEE, Dynamic Deficit, Safety Ceilings, Asian vs International BMI)
-- [ ] 1.3 Create canonical test vectors (`math_engine_test_vectors.json`) covering edge cases (boundary ages, BMI thresholds, 30 vs 60-day cuts, metabolic deficit clamps) ← (verify: test vectors validate all edge cases and safety limits without floating point discrepancies)
+- [x] 1.1 Define shared JSON schemas for Exercise, UserProfile, WorkoutSession, and BodyArchetype
+- [x] 1.2 Write canonical mathematical calculation specifications (Mifflin-St Jeor BMR, TDEE, Dynamic Deficit, Safety Ceilings, Asian vs International BMI)
+- [x] 1.3 Create canonical test vectors (`math_engine_test_vectors.json`) covering edge cases (boundary ages, BMI thresholds, 30 vs 60-day cuts, metabolic deficit clamps) ← (verify: test vectors validate all edge cases and safety limits without floating point discrepancies)
 
 ## 2. Exercise Catalog Seed Data & Offline Database
 
-- [ ] 2.1 Assemble comprehensive seed catalog JSON of 60+ home exercises with tags (equipment, joints contraindicated, primary/secondary muscles, common mistakes, form cues)
-- [ ] 2.2 Create SQLite database build script / pre-packaged `exercises_seed.db` schema
-- [ ] 2.3 Verify seed database queries for equipment subsets and injury filtering ← (verify: constraint queries return valid non-empty routines for all equipment combinations without SQL syntax errors)
+- [x] 2.1 Assemble comprehensive seed catalog JSON of 60+ home exercises with tags (equipment, joints contraindicated, primary/secondary muscles, common mistakes, form cues)
+- [x] 2.2 Create SQLite database build script / pre-packaged `exercises_seed.db` schema
+- [x] 2.3 Verify seed database queries for equipment subsets and injury filtering ← (verify: constraint queries return valid non-empty routines for all equipment combinations without SQL syntax errors)
 
 ## 3. Android Native Core (Kotlin, Jetpack Compose, Room)
 

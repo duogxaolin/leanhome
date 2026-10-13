@@ -1825,5 +1825,102 @@
       "Lưng thẳng, cúi 45 độ",
       "Nâng tạ ngang vai, siết bả vai"
     ]
+  },
+  {
+    "id": "db_calf_raise",
+    "name_en": "DB Calf Raises",
+    "name_vi": "Nâng gót chân tạ đơn",
+    "primary_muscles": [
+      "CALVES"
+    ],
+    "secondary_muscles": [
+      "GLUTES",
+      "HAMSTRINGS"
+    ],
+    "required_equipment": [
+      "DUMBBELLS"
+    ],
+    "contraindicated_joints": [
+      "ANKLE",
+      "KNEE"
+    ],
+    "difficulty_level": "BEGINNER",
+    "video_url": "https://cdn.leanhome.app/exercises/db_calf_raise.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/db_calf_raise.svg",
+    "common_mistakes": [
+      "Đáp đất bằng gót chân khi hạ xuống",
+      "Đung đưa thân người để lấy đà"
+    ],
+    "correct_form_cues": [
+      "Đứng trên mép bậc, mang tạ hai bên",
+      "Hạ chậm 2 giây, nâng nhanh 1 giây"
+    ]
+  },
+  {
+    "id": "band_wood_chop",
+    "name_en": "Band Wood Chop",
+    "name_vi": "Chặt củi dây kháng lực",
+    "primary_muscles": [
+      "ABS",
+      "OBLIQUES"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "SIDE_DELTOID",
+      "QUADRICEPS",
+      "GLUTES"
+    ],
+    "required_equipment": [
+      "RESISTANCE_BANDS"
+    ],
+    "contraindicated_joints": [
+      "LOWER_BACK",
+      "SHOULDER",
+      "KNEE"
+    ],
+    "difficulty_level": "INTERMEDIATE",
+    "video_url": "https://cdn.leanhome.app/exercises/band_wood_chop.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/band_wood_chop.svg",
+    "common_mistakes": [
+      "Xoay lưng dưới thay vì xoay thân trên",
+      "Đung đưa cơ thể quá nhiều"
+    ],
+    "correct_form_cues": [
+      "Xoay từ hông và vai, giữ lưng thẳng",
+      "Siết core khi xoay chéo qua thân"
+    ]
+  },
+  {
+    "id": "push_up_archer",
+    "name_en": "Archer Push-Up",
+    "name_vi": "Hít đất xạ thủ",
+    "primary_muscles": [
+      "CHEST_MID",
+      "TRICEPS",
+      "BICEPS"
+    ],
+    "secondary_muscles": [
+      "FRONT_DELTOID",
+      "ABS"
+    ],
+    "required_equipment": [
+      "BODYWEIGHT_ONLY"
+    ],
+    "contraindicated_joints": [
+      "WRIST",
+      "SHOULDER",
+      "ELBOW"
+    ],
+    "difficulty_level": "ADVANCED",
+    "video_url": "https://cdn.leanhome.app/exercises/push_up_archer.mp4",
+    "fallback_thumbnail_url": "https://cdn.leanhome.app/exercises/push_up_archer.svg",
+    "common_mistakes": [
+      "Tay duỗi rộng quá mức gây chấn thương vai",
+      "Thân người lệch khi hạ xuống một bên"
+    ],
+    "correct_form_cues": [
+      "Tay duỗi rộng 1.5 lần vai, tay kia co sát thân",
+      "Hạ về phía tay co, đổi bên mỗi set"
+    ]
   }
 ]
