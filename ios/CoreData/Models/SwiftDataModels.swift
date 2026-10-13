@@ -256,6 +256,34 @@ public final class WorkoutSessionModel {
     }
 }
 
+// MARK: - WeightLogModel
+
+/// SwiftData model for weekly weigh-in records. Stores one entry per weigh-in
+/// with the measured weight, date, and user association.
+@Model
+public final class WeightLogModel {
+    @Attribute(.unique) public var id: UUID
+    public var userId: UUID
+    public var weightKg: Double
+    /// ISO 8601 date string (YYYY-MM-dd).
+    public var loggedDate: String
+    public var createdAt: Int
+
+    public init(
+        id: UUID = UUID(),
+        userId: UUID,
+        weightKg: Double,
+        loggedDate: String,
+        createdAt: Int = Int(Date().timeIntervalSince1970)
+    ) {
+        self.id = id
+        self.userId = userId
+        self.weightKg = weightKg
+        self.loggedDate = loggedDate
+        self.createdAt = createdAt
+    }
+}
+
 // MARK: - JSON helpers
 
 private func json(_ array: [String]) -> String {

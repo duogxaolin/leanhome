@@ -18,7 +18,12 @@ public struct ProgramResult: Sendable, Hashable {
 public enum GenerateProgramUseCase {
 
     /// Produce the user's energy/balance assessment plus a weekly workout plan.
-    public static func execute(profile: UserProfile, catalog: [Exercise]) -> ProgramResult {
+    public static func execute(
+        profile: UserProfile,
+        catalog: [Exercise],
+        excludedExerciseIds: Set<String> = [],
+        volumeAdjustment: WorkoutGenerator.VolumeAdjustment = .none
+    ) -> ProgramResult {
         let energy = EnergyBalanceEngine.assess(
             gender: profile.gender,
             age: profile.age,
@@ -30,7 +35,12 @@ public enum GenerateProgramUseCase {
             targetWeightKg: profile.targetWeightKg,
             targetDays: profile.targetDays
         )
-        let plan = WorkoutGenerator.generateWeeklyPlan(catalog: catalog, profile: profile)
+        let plan = WorkoutGenerator.generateWeeklyPlan(
+            catalog: catalog,
+            profile: profile,
+            excludedExerciseIds: excludedExerciseIds,
+            volumeAdjustment: volumeAdjustment
+        )
         return ProgramResult(energy: energy, plan: plan)
     }
 }

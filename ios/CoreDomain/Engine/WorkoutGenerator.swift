@@ -229,22 +229,39 @@ public enum WorkoutGenerator {
     /// - Parameters:
     ///   - catalog: Universe of catalog exercises.
     ///   - profile: User profile (equipment, injuries, schedule, goal).
-    ///   - dayOfWeek: (unused now) reserved for future date assignment.
+    ///   - excludedExerciseIds: Exercise IDs the user explicitly excluded during
+    ///     onboarding; these are removed from the selectable pool.
+    ///   - volumeAdjustment: Fatigue-based adjustment (deload or overload)
+    ///     computed from recent RPE history. `.deload` reduces sets by 10%
+    ///     (minimum 2 per exercise). `.progressiveOverload` adds +1 rep to the
+    ///     first compound exercise of each session. `.none` leaves volume as-is.
     public static func generateWeeklyPlan(
         catalog: [Exercise],
-        profile: UserProfile
+        profile: UserProfile,
+        excludedExerciseIds: Set<String> = [],
+        volumeAdjustment: VolumeAdjustment = .none
     ) -> WeeklyWorkoutPlan {
         let pool = selectableExercises(
             catalog: catalog,
             availableEquipment: profile.availableEquipment,
             injuries: profile.injuryFlags
-        )
+        ).filter { !excludedExerciseIds.contains($0.id) }
         let split = splitType(forDaysPerWeek: profile.daysPerWeek)
         let sessionLabels = weeklySessions(days: profile.daysPerWeek)
         let volume = volumeAllocation(
             dailyTimeMinutes: profile.dailyTimeMinutes,
             targetGoal: profile.fitnessGoal
         )
+
+        // Apply fatigue-based sets adjustment (deload: -10%, min 2).
+        let adjustedSets: Int = {
+            switch volumeAdjustment {
+            case .deload:
+                return max(2, Int(Double(volume.setsPerExercise) * 0.9))
+            default:
+                return volume.setsPerExercise
+            }
+        }()
 
         var plannedSessions: [PlannedSession] = []
         for (index, label) in sessionLabels.enumerated() {
@@ -254,11 +271,20 @@ public enum WorkoutGenerator {
                 target: profile.targetMuscleGroup,
                 count: volume.exerciseCount
             )
+            var sawFirstCompound = false
             let sessionExercises = chosen.map { exercise in
-                SessionExercise(
+                let isPrimaryCompound = !sawFirstCompound && isCompound(exercise)
+                if isPrimaryCompound { sawFirstCompound = true }
+                let adjustedReps: Int = {
+                    if case .progressiveOverload = volumeAdjustment, isPrimaryCompound {
+                        return 10 + 1
+                    }
+                    return 10
+                }()
+                return SessionExercise(
                     exerciseId: exercise.id,
-                    plannedSets: volume.setsPerExercise,
-                    plannedReps: 10,
+                    plannedSets: adjustedSets,
+                    plannedReps: adjustedReps,
                     plannedRestSeconds: volume.restSeconds
                 )
             }

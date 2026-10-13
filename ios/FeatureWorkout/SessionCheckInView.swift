@@ -24,15 +24,23 @@ public struct SessionCheckInView: View {
     @State private var rpe: Int = 7
     @State private var selectedTags: Set<FeelingTag> = []
     @State private var actualSetsByIndex: [Int] = []
+    /// Per-exercise actual reps: `actualReps[idx][set]`.
+    @State private var actualRepsByExercise: [[Int]] = []
     @State private var notes: String = ""
     @State private var saving = false
 
     public init(session: WorkoutSession, viewModel: WorkoutPlayerViewModel) {
         self.session = session
         self.viewModel = viewModel
-        var initial: [Int] = []
-        for ex in session.exercises { initial.append(ex.plannedSets) }
-        self._actualSetsByIndex = State(initialValue: initial)
+        var initialSets: [Int] = []
+        var initialReps: [[Int]] = []
+        for ex in session.exercises {
+            initialSets.append(ex.plannedSets)
+            // Pre-fill each set with the planned rep count as default.
+            initialReps.append(Array(repeating: ex.plannedReps, count: ex.plannedSets))
+        }
+        self._actualSetsByIndex = State(initialValue: initialSets)
+        self._actualRepsByExercise = State(initialValue: initialReps)
     }
 
     public var body: some View {
@@ -64,21 +72,49 @@ public struct SessionCheckInView: View {
                 }
                 Section("Actual vs planned") {
                     ForEach(Array(session.exercises.enumerated()), id: \.offset) { idx, exercise in
-                        HStack {
-                            Text(exercise.exerciseId.replacingOccurrences(of: "_", with: " "))
-                                .font(.caption)
-                                .lineLimit(1)
-                            Spacer()
-                            Stepper("\(actualSetsByIndex[idx]) / \(exercise.plannedSets)",
-                                    value: Binding(
-                                        get: { actualSetsByIndex[idx] },
-                                        set: { actualSetsByIndex[idx] = $0 }
-                                    ),
-                                    in: 0...exercise.plannedSets)
-                                .labelsHidden()
-                            Text("\(actualSetsByIndex[idx]) / \(exercise.plannedSets)")
-                                .monospacedDigit()
-                                .font(.callout)
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Text(exercise.exerciseId.replacingOccurrences(of: "_", with: " "))
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                Spacer()
+                                Stepper("\(actualSetsByIndex[idx]) / \(exercise.plannedSets)",
+                                        value: Binding(
+                                            get: { actualSetsByIndex[idx] },
+                                            set: { actualSetsByIndex[idx] = $0 }
+                                        ),
+                                        in: 0...exercise.plannedSets)
+                                    .labelsHidden()
+                                Text("\(actualSetsByIndex[idx]) / \(exercise.plannedSets)")
+                                    .monospacedDigit()
+                                    .font(.callout)
+                            }
+                            // Actual reps per set input
+                            if actualSetsByIndex[idx] > 0 {
+                                ForEach(0..<actualSetsByIndex[idx], id: \.self) { setIdx in
+                                    HStack {
+                                        Text("Set \(setIdx + 1)")
+                                            .font(.caption2)
+                                            .foregroundStyle(.secondary)
+                                        Stepper(value: Binding(
+                                            get: {
+                                                setIdx < actualRepsByExercise[idx].count
+                                                    ? actualRepsByExercise[idx][setIdx]
+                                                    : exercise.plannedReps
+                                            },
+                                            set: { newVal in
+                                                if setIdx < actualRepsByExercise[idx].count {
+                                                    actualRepsByExercise[idx][setIdx] = newVal
+                                                }
+                                            }
+                                        ), in: 0...100) {
+                                            Text("Reps: \(setIdx < actualRepsByExercise[idx].count ? actualRepsByExercise[idx][setIdx] : exercise.plannedReps)")
+                                                .font(.caption)
+                                                .monospacedDigit()
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -134,13 +170,25 @@ public struct SessionCheckInView: View {
                 let repo = WorkoutSessionRepository(context: context)
                 var actualSessions: [SessionExercise] = []
                 for (idx, ex) in session.exercises.enumerated() {
+                    let completedSets = idx < actualSetsByIndex.count ? actualSetsByIndex[idx] : ex.plannedSets
+                    // Build actual reps array for the completed sets only.
+                    var repsArray: [Int] = []
+                    if idx < actualRepsByExercise.count {
+                        for setIdx in 0..<completedSets {
+                            repsArray.append(
+                                setIdx < actualRepsByExercise[idx].count
+                                    ? actualRepsByExercise[idx][setIdx]
+                                    : ex.plannedReps
+                            )
+                        }
+                    }
                     actualSessions.append(SessionExercise(
                         exerciseId: ex.exerciseId,
                         plannedSets: ex.plannedSets,
                         plannedReps: ex.plannedReps,
                         plannedRestSeconds: ex.plannedRestSeconds,
-                        actualSetsCompleted: idx < actualSetsByIndex.count ? actualSetsByIndex[idx] : ex.plannedSets,
-                        actualRepsCompleted: nil
+                        actualSetsCompleted: completedSets,
+                        actualRepsCompleted: repsArray
                     ))
                 }
                 _ = try repo.update(

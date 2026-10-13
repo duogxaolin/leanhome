@@ -34,6 +34,7 @@ struct LeanHomeApp: App {
                 for: ExerciseModel.self,
                 UserProfileModel.self,
                 WorkoutSessionModel.self,
+                WeightLogModel.self,
                 configurations: ModelConfiguration(url: LeanHomeApp.storeURL)
             )
             try SeedImporter.seedIfNeeded(in: container.mainContext)
@@ -49,6 +50,7 @@ struct LeanHomeApp: App {
                     for: ExerciseModel.self,
                     UserProfileModel.self,
                     WorkoutSessionModel.self,
+                    WeightLogModel.self,
                     configurations: inMemory
                 )
                 try SeedImporter.seedIfNeeded(in: c.mainContext)
@@ -73,7 +75,6 @@ struct LeanHomeApp: App {
 struct RootView: View {
     @Environment(\.modelContext) private var context
     @Query private var profiles: [UserProfileModel]
-    @State private var onboardingComplete: Bool?
 
     var hasProfile: Bool { !profiles.isEmpty }
 
@@ -82,26 +83,55 @@ struct RootView: View {
             if hasProfile {
                 ContentView()
             } else {
-                OnboardingView(isComplete: Binding(
-                    get: { onboardingComplete ?? false },
-                    set: { value in
-                        if value {
-                            persistOnboardingProfile()
-                        }
-                        onboardingComplete = value
-                    }
-                ))
+                OnboardingView { profile, excludedExerciseIds in
+                    persistOnboardingProfile(profile: profile, excludedExerciseIds: excludedExerciseIds)
+                }
                 .environment(\.modelContext, context)
             }
         }
     }
 
-    private func persistOnboardingProfile() {
-        // The onboarding view's "Finish" flips the binding; the finished
-        // profile is built from a fresh OnboardingViewModel here. A richer
-        // integration passes the profile directly; this keeps the root
-        // authoritative for persistence.
-        Task { @MainActor in }
+    /// Persist the completed onboarding profile to SwiftData, generate the
+    /// first weekly workout plan, insert all session models, then save.
+    /// The `@Query` for `profiles` will observe the insertion and flip
+    /// `hasProfile` to `true`, automatically transitioning to `ContentView`.
+    private func persistOnboardingProfile(profile: UserProfile, excludedExerciseIds: Set<String>) {
+        Task { @MainActor in
+            do {
+                let profileRepo = UserProfileRepository(context: context)
+                _ = try profileRepo.save(profile)
+
+                let exerciseRepo = ExerciseRepository(context: context)
+                let catalog = try exerciseRepo.all()
+
+                let plan = WorkoutGenerator.generateWeeklyPlan(
+                    catalog: catalog,
+                    profile: profile,
+                    excludedExerciseIds: excludedExerciseIds
+                )
+
+                let sessionRepo = WorkoutSessionRepository(context: context)
+                let today = Date()
+                let isoFmt = ISO8601DateFormatter()
+                isoFmt.formatOptions = [.withFullDate]
+                for (i, planned) in plan.sessions.enumerated() {
+                    let date = Calendar.current.date(byAdding: .day, value: i, to: today) ?? today
+                    let iso = isoFmt.string(from: date)
+                    let session = WorkoutSession(
+                        userId: profile.id,
+                        scheduledDate: iso,
+                        splitName: planned.splitSession,
+                        status: .pending,
+                        exercises: planned.exercises
+                    )
+                    _ = try sessionRepo.save(session)
+                }
+            } catch {
+                // Persistence failure is non-fatal; the profile may still be
+                // present from a prior attempt. The @Query refresh will
+                // transition to ContentView if the profile was saved.
+            }
+        }
     }
 }
 
@@ -117,6 +147,8 @@ struct ContentView: View {
                 .tabItem { Label("Workouts", systemImage: "figure.strengthtraining.traditional") }
             SessionHistoryView()
                 .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
+            ProgressDashboardView()
+                .tabItem { Label("Progress", systemImage: "chart.line.uptrend.xyaxis") }
             ProfileSummaryView()
                 .tabItem { Label("Profile", systemImage: "person.crop.circle") }
         }

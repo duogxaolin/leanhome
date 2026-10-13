@@ -131,3 +131,38 @@ public final class WorkoutSessionRepository {
         return model.toDomain()
     }
 }
+
+@MainActor
+public final class WeightLogRepository {
+    private let context: ModelContext
+
+    public init(context: ModelContext) {
+        self.context = context
+    }
+
+    @discardableResult
+    public func save(userId: UUID, weightKg: Double, loggedDate: String) throws -> WeightLogModel {
+        let model = WeightLogModel(userId: userId, weightKg: weightKg, loggedDate: loggedDate)
+        context.insert(model)
+        try context.save()
+        return model
+    }
+
+    /// All weigh-in entries for `userId`, ordered by date ascending.
+    public func entries(for userId: UUID) throws -> [WeightLogModel] {
+        let descriptor = FetchDescriptor<WeightLogModel>(
+            predicate: #Predicate { $0.userId == userId },
+            sortBy: [SortDescriptor(\.loggedDate, order: .forward)]
+        )
+        return try context.fetch(descriptor)
+    }
+
+    /// Most recent weigh-in (if any).
+    public func latestEntry(for userId: UUID) throws -> WeightLogModel? {
+        let descriptor = FetchDescriptor<WeightLogModel>(
+            predicate: #Predicate { $0.userId == userId },
+            sortBy: [SortDescriptor(\.loggedDate, order: .reverse)]
+        )
+        return try context.fetch(descriptor).first
+    }
+}

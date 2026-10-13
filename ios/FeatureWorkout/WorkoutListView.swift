@@ -66,7 +66,20 @@ public struct WorkoutListView: View {
         guard let profileModel = profiles.first else { return }
         let profile = profileModel.toDomain()
         let catalog = exercises.compactMap { $0.toDomain() }
-        let plan = WorkoutGenerator.generateWeeklyPlan(catalog: catalog, profile: profile)
+
+        // Fatigue auto-regulation: fetch last 3 completed sessions,
+        // compute average RPE, and pass the volume adjustment into
+        // the weekly plan generator.
+        let sessionRepo = WorkoutSessionRepository(context: context)
+        let recentSessions = (try? sessionRepo.recentCompletedSessions(for: profile.id, limit: 3)) ?? []
+        let recentRPE = recentSessions.compactMap { $0.rpeScore }
+        let adjustment = WorkoutGenerator.fatigueAdjustment(recentRPE: recentRPE)
+
+        let plan = WorkoutGenerator.generateWeeklyPlan(
+            catalog: catalog,
+            profile: profile,
+            volumeAdjustment: adjustment
+        )
         generatedPlan = plan
         // Build domain sessions for persistence/preview.
         let today = Date()
@@ -83,9 +96,8 @@ public struct WorkoutListView: View {
             ))
         }
         generatedSessionsToPersist = built
-        let repo = WorkoutSessionRepository(context: context)
         for s in built {
-            _ = try? repo.save(s)
+            _ = try? sessionRepo.save(s)
         }
         showingGenerated = true
     }

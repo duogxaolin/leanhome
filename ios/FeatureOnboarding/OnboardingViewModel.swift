@@ -40,12 +40,14 @@ public final class OnboardingViewModel: ObservableObject {
     @Published public var availableEquipment: Set<Equipment> = [.bodyweightOnly]
     @Published public var injuryFlags: Set<JointFlag> = []
 
+    // STEP 5b — Exercise selection (exclude unwanted exercises)
+    @Published public var excludedExerciseIds: Set<String> = []
+
     // STEP 6 — Schedule + timeline
     @Published public var daysPerWeek: Int = 3
     @Published public var dailyTimeMinutes: Int = 30
     @Published public var targetWeightKg: Double?
     @Published public var targetDays: Int?
-
     // Latest assessed energy result, recomputed on demand.
     public private(set) var energyResult: EnergyBalanceResult?
 

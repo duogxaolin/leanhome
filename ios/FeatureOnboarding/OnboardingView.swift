@@ -4,21 +4,24 @@
 //
 //  Multi-step onboarding flow:
 //    1 Biometric → 2 BMI gauge → 3 Archetype → 4 Goal →
-//    5 Equipment & injuries → 6 Schedule → 7 Timeline (with warnings).
+//    5 Equipment & injuries → 5b Exercise selection → 6 Schedule → 7 Timeline.
 //
 
 import SwiftUI
+import SwiftData
+import CoreData
 import CoreDomain
 
 public struct OnboardingView: View {
     @StateObject private var viewModel = OnboardingViewModel()
-    @Binding private var isComplete: Bool
+    @Query private var exerciseModels: [ExerciseModel]
+    private let onComplete: (UserProfile, Set<String>) -> Void
 
     /// Inferred energy result, recomputed when relevant fields change.
     private var energyResult: EnergyBalanceResult { viewModel.assessment() }
 
-    public init(isComplete: Binding<Bool>) {
-        self._isComplete = isComplete
+    public init(onComplete: @escaping (UserProfile, Set<String>) -> Void) {
+        self.onComplete = onComplete
     }
 
     public var body: some View {
@@ -28,6 +31,7 @@ public struct OnboardingView: View {
             archetypeStep
             goalStep
             equipmentStep
+            exerciseSelectionStep
             scheduleStep
             timelineStep
         }
@@ -160,6 +164,55 @@ public struct OnboardingView: View {
         }
     }
 
+    // MARK: 5b — Exercise selection
+
+    private var exerciseSelectionStep: some View {
+        OnboardingStepCard(title: "Exercise preferences", subtitle: "Tap to exclude any exercise you don't want") {
+            let catalog = exerciseModels.compactMap { $0.toDomain() }
+            let filtered = WorkoutGenerator.selectableExercises(
+                catalog: catalog,
+                availableEquipment: Array(viewModel.availableEquipment),
+                injuries: Array(viewModel.injuryFlags)
+            )
+            if filtered.isEmpty {
+                Text("No exercises match your equipment and injury selections. Adjust on the previous step.")
+                    .foregroundStyle(.orange)
+                    .font(.callout)
+            } else {
+                ForEach(filtered, id: \.id) { exercise in
+                    let isExcluded = viewModel.excludedExerciseIds.contains(exercise.id)
+                    Button(action: {
+                        if isExcluded {
+                            viewModel.excludedExerciseIds.remove(exercise.id)
+                        } else {
+                            viewModel.excludedExerciseIds.insert(exercise.id)
+                        }
+                    }) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(exercise.nameEn)
+                                    .font(.body)
+                                Text(exercise.difficultyLevel.displayName)
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                if !exercise.requiredEquipment.isEmpty {
+                                    Text(exercise.requiredEquipment.map(\.displayName).joined(separator: ", "))
+                                        .font(.caption2)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            Spacer()
+                            Image(systemName: isExcluded ? "checkmark.circle.fill" : "circle")
+                                .foregroundStyle(isExcluded ? .red : .secondary)
+                        }
+                        .padding(.vertical, 6)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+        }
+    }
+
     // MARK: 6 — Schedule
 
     private var scheduleStep: some View {
@@ -218,7 +271,10 @@ public struct OnboardingView: View {
                     .font(.callout)
                     .monospacedDigit()
             }
-            Button(action: { isComplete = true }) {
+            Button(action: {
+                let profile = viewModel.buildProfile()
+                onComplete(profile, viewModel.excludedExerciseIds)
+            }) {
                 Text("Finish onboarding")
                     .font(.headline)
                     .frame(maxWidth: .infinity, minHeight: 50)
