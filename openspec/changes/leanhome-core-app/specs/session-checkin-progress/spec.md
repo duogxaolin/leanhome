@@ -31,3 +31,28 @@ The system SHALL prompt weekly weigh-ins under consistent conditions (morning fa
 #### Scenario: Consistent weigh-in recorded
 - **WHEN** user records weekly weight 77.2 kg (-0.8 kg from baseline)
 - **THEN** progress chart updates slope, projected goal date refreshes, and adherence badge is awarded
+
+### Requirement: Weekly Weigh-in Prompt UI
+The system SHALL display a weekly weigh-in prompt on the home screen every 7 days requesting the user to enter their morning fasting weight. The prompt SHALL be dismissible but SHALL resurface if the weigh-in is not recorded within the 7-day window.
+
+#### Scenario: Weekly weigh-in prompt surfaces
+- **WHEN** 7 days have elapsed since the user's last recorded weigh-in
+- **THEN** the home screen displays a weigh-in prompt card requesting the user to enter their morning fasting weight
+
+### Requirement: Progress Dashboard
+The system SHALL provide a progress dashboard screen showing: a weight trend line chart from baseline to current weight, a projected goal achievement date computed from the current rate of loss, an adherence rate expressed as the percentage of planned sessions completed, and an adherence badge displayed when compliance reaches >= 85%.
+
+#### Scenario: Dashboard renders trend and projection
+- **WHEN** user opens the progress dashboard after 4 weeks of logged weigh-ins
+- **THEN** the dashboard displays the weight trend line chart from baseline to current, the projected goal date computed from the 4-week rate of loss, the adherence rate, and an adherence badge because compliance is >= 85%
+
+### Requirement: Adherence Tracking
+The system SHALL compute adherence as (completed sessions / planned sessions) over the trailing 7-day window. When adherence >= 85%, the system SHALL display an adherence badge. When weight loss stalls for 2 consecutive weeks while adherence >= 85%, the system SHALL show a plateau warning suggesting a caloric or activity recalculation.
+
+#### Scenario: Adherence badge awarded at 85% compliance
+- **WHEN** the user completes 6 of 7 planned sessions in the trailing 7-day window (adherence = ~86%)
+- **THEN** the system displays the adherence badge on the progress dashboard
+
+#### Scenario: Plateau warning shown under high adherence
+- **WHEN** the user's weight loss stalls for 2 consecutive weeks while adherence remains >= 85%
+- **THEN** the system shows a plateau warning suggesting a caloric or activity recalculation

@@ -46,3 +46,25 @@ When the user selects `TARGET_ZONE_TONING` as fitness goal with a specific muscl
 #### Scenario: User targets chest zone
 - **WHEN** user selects `TARGET_ZONE_TONING` with focus muscle `CHEST`
 - **THEN** generator allocates at least 50% of isolation exercises targeting CHEST (e.g. Push-Up variations, DB Fly, Cable/Band Crossover) while still including leg and back compound movements for balance
+
+### Requirement: User Exercise Curation
+During onboarding (and from profile settings thereafter), the system SHALL allow the user to browse the full seeded exercise catalog and mark individual exercises for exclusion based on personal preference, discomfort, or health reasons. The WorkoutGenerator SHALL respect the user's `excluded_exercises` list and SHALL omit every excluded exercise ID from all generated sessions. When the user selects the `full` onboarding mode (no exclusions specified), the generator SHALL use every exercise matching the equipment and injury constraints without applying any exclusion filter.
+
+#### Scenario: User excludes push-ups due to wrist discomfort
+- **WHEN** user marks `PUSH_UP` and its variants as excluded during onboarding due to wrist discomfort
+- **THEN** the WorkoutGenerator omits `PUSH_UP`, `DIAMOND_PUSH_UP`, `WIDE_PUSH_UP`, and `KNEE_PUSH_UP` from every generated session and substitutes alternative chest pressing movements (e.g. `DB_BENCH_PRESS` if equipment permits)
+
+#### Scenario: User selects full mode
+- **WHEN** user selects the `full` onboarding mode without specifying any exclusions
+- **THEN** no exclusion filter is applied and the generator selects from the full constrained candidate pool (equipment + injury filtered only)
+
+### Requirement: Fatigue-Aware Session Generation
+The WorkoutGenerator SHALL accept an optional `fatigue_adjustment` parameter from the `FatigueRegulation` engine and SHALL apply it to the next generated session's volume. When a deload adjustment is provided (rolling 3-session average RPE >= 9.0), the generator SHALL reduce the planned working-set count on each exercise by 10% (rounded down). When a progressive overload adjustment is provided (rolling 3-session average RPE <= 5.0), the generator SHALL add 1 rep to every set of primary compound movements, or add 1 working set to a primary compound movement when an additional rep cannot be applied.
+
+#### Scenario: Deload triggered reduces working sets
+- **WHEN** the FatigueRegulation engine emits a deload adjustment (RPE 9, 10, 9 across the trailing 3 sessions)
+- **THEN** a session that would normally prescribe 5 exercises at 4 working sets each is generated with 5 exercises at 3 working sets each (10% reduction applied, rounded down)
+
+#### Scenario: Progressive overload triggered adds a rep
+- **WHEN** the FatigueRegulation engine emits a progressive overload adjustment (RPE 4, 5, 4 across the trailing 3 sessions)
+- **THEN** the generator adds 1 rep to each set of the primary compound movement (e.g. 4 sets × 8 reps becomes 4 sets × 9 reps) in the next generated session
