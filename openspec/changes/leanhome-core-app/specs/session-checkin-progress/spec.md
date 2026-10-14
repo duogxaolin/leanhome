@@ -56,3 +56,23 @@ The system SHALL compute adherence as (completed sessions / planned sessions) ov
 #### Scenario: Plateau warning shown under high adherence
 - **WHEN** the user's weight loss stalls for 2 consecutive weeks while adherence remains >= 85%
 - **THEN** the system shows a plateau warning suggesting a caloric or activity recalculation
+
+### Requirement: Health Platform Integration (Read-Only)
+
+The system SHALL integrate with platform health data stores to import step count, active energy burned, and body mass readings:
+- iOS: Apple HealthKit (HKHealthStore)
+- Android: Google Health Connect (HealthConnectClient)
+
+Integration SHALL be read-only — the app SHALL only read data, never write. The system SHALL request user permission on first access and gracefully handle denial.
+
+#### Scenario: User grants Health access and imports steps
+- **WHEN** user taps 'Import from Health' on the Progress Dashboard and grants permission
+- **THEN** system retrieves last 7 days of step count data, displays daily average, and incorporates into TDEE activity level estimation
+
+#### Scenario: User denies Health access
+- **WHEN** user denies Health permission
+- **THEN** system shows 'Health data unavailable' message with option to retry, no crash
+
+#### Scenario: Health data unavailable on device
+- **WHEN** Health platform is not available (HealthKit on iPad / Health Connect not installed)
+- **THEN** system hides the Health import option and shows no error

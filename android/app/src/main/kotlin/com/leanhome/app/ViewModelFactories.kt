@@ -73,5 +73,6 @@ class ProgressDashboardViewModelFactory(
         userId = userId,
         getDashboard = getDashboard,
         weightLogRepository = container.weightLogRepository,
+        healthConnect = container.healthConnectManager,
     ) as T
 }

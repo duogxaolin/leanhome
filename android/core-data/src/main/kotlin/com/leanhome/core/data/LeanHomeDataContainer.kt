@@ -1,13 +1,16 @@
 package com.leanhome.core.data
 
 import android.content.Context
+import com.leanhome.core.data.health.HealthConnectManager
 import com.leanhome.core.data.database.DatabaseProvider
 import com.leanhome.core.data.db.LeanHomeDatabase
 import com.leanhome.core.data.repository.ExerciseRepositoryImpl
 import com.leanhome.core.data.repository.UserProfileRepositoryImpl
+import com.leanhome.core.data.repository.WorkoutSessionRepositoryImpl
 import com.leanhome.core.data.repository.WeightLogRepositoryImpl
 import com.leanhome.core.domain.repository.ExerciseRepository
 import com.leanhome.core.domain.repository.UserProfileRepository
+import com.leanhome.core.domain.repository.WorkoutSessionRepository
 import com.leanhome.core.domain.repository.WeightLogRepository
 
 /**
@@ -32,5 +35,9 @@ class LeanHomeDataContainer(private val context: Context) {
 
     val weightLogRepository: WeightLogRepository by lazy {
         WeightLogRepositoryImpl(database.weightLogDao())
+    }
+
+    val healthConnectManager: HealthConnectManager by lazy {
+        HealthConnectManager(context)
     }
 }

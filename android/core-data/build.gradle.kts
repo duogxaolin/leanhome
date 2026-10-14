@@ -64,6 +64,9 @@ dependencies {
     // WorkManager for background prefetch (used by cache/worker layer)
     api(libs.androidx.work.runtime.ktx)
 
+    // Health Connect for read-only health data (steps, calories, body weight)
+    api(libs.androidx.health.connect)
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.room.testing)

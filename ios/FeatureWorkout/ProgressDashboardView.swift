@@ -31,6 +31,7 @@ public struct ProgressDashboardView: View {
                 VStack(spacing: 20) {
                     if let profile = profiles.first {
                         weighInSection(profile: profile)
+                        healthImportSection
                         weightTrendChart
                         projectedGoalSection(profile: profile)
                         adherenceSection
@@ -43,6 +44,19 @@ public struct ProgressDashboardView: View {
             }
             .navigationTitle("Progress")
         }
+    }
+
+    // MARK: - Health import
+
+    /// Read-only HealthKit import row. Hidden entirely when HealthKit
+    /// is unavailable on the current device (e.g. iPad) so the
+    /// dashboard remains functional without a Health import option.
+    private var healthImportSection: some View {
+        #if canImport(HealthKit)
+        return HealthImportSection()
+        #else
+        return EmptyView()
+        #endif
     }
 
     // MARK: - Weigh-in
