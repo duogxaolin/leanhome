@@ -49,6 +49,15 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    // Camera + on-device pose estimation (V2 camera body scan)
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+    implementation(libs.androidx.camera.lifecycle)
+    implementation(libs.androidx.camera.view)
+    implementation(libs.mediapipe.tasks.vision)
+    // request permission helper for Activity Result API
+    implementation(libs.androidx.activity.compose)
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
 }

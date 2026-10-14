@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,14 +37,21 @@ fun ArchetypePickerStep(
     state: OnboardingState,
     onIntent: (OnboardingIntent) -> Unit,
     modifier: Modifier = Modifier,
+    onStartCameraScan: () -> Unit = {},
 ) {
     val archetypes = BodyArchetype.forGender(state.gender)
 
     Column(modifier = modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text("Choose your body shape", style = MaterialTheme.typography.headlineSmall)
-        Text("Don't worry — this only affects workout emphasis. V1 uses illustrations (no camera AI).",
+        Text("This only affects workout emphasis. Optionally scan with your camera for a suggested shape — processed entirely on your device.",
             style = MaterialTheme.typography.bodySmall)
 
+        OutlinedButton(
+            onClick = onStartCameraScan,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Scan My Body")
+        }
         archetypes.forEach { arch ->
             val selected = state.bodyArchetype == arch
             Card(

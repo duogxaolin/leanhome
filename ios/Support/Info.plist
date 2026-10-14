@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>en</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
+    <key>CFBundleIdentifier</key>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleName</key>
+    <string>$(PRODUCT_NAME)</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+    <key>CFBundleVersion</key>
+    <string>1</string>
+    <!-- Camera access for the on-device V2 Body Shape Scan.
+         No photos or biometric data ever leave the device. -->
+    <key>NSCameraUsageDescription</key>
+    <string>LeanHome uses the camera to detect body pose on your device for body shape analysis. No photos or body data are uploaded or stored — all processing happens locally.</string>
+    <!-- HealthKit read-only access for steps, active energy, and body mass.
+         The app never writes any samples back to HealthKit. -->
+    <key>NSHealthShareUsageDescription</key>
+    <string>LeanHome reads your step count, active energy, and body mass from Apple Health to fine-tune your calorie and activity targets. LeanHome never writes any data to HealthKit.</string>
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>healthkit</string>
+    </array>
+</dict>
+</plist>

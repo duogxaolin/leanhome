@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -42,6 +44,7 @@ import com.leanhome.feature.onboarding.steps.ScheduleStep
 import com.leanhome.feature.onboarding.steps.ReviewSummaryStep
 import com.leanhome.feature.onboarding.steps.ExerciseSelectionStep
 import com.leanhome.feature.onboarding.steps.WhoBmiGaugeStep
+import com.leanhome.feature.onboarding.steps.CameraScanStep
 
 /**
  * Main Onboarding screen — drives the multi-step paged flow via the
@@ -56,6 +59,7 @@ fun OnboardingScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val engine = remember { EnergyBalanceEngine() }
+    var showCameraScan by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.effects.collect { effect ->
@@ -89,7 +93,11 @@ fun OnboardingScreen(
             when (state.step) {
                 OnboardingStep.BIOMETRIC_INPUT -> BiometricInputStep(state, onIntent)
                 OnboardingStep.WHO_BMI_GAUGE -> WhoBmiGaugeStep(state, engine)
-                OnboardingStep.ARCHETYPE_PICKER -> ArchetypePickerStep(state, onIntent)
+                OnboardingStep.ARCHETYPE_PICKER -> ArchetypePickerStep(
+                    state = state,
+                    onIntent = onIntent,
+                    onStartCameraScan = { showCameraScan = true },
+                )
                 OnboardingStep.GOAL_SELECTION -> GoalSelectionStep(state, onIntent)
                 OnboardingStep.EQUIPMENT_SELECTION -> EquipmentSelectionStep(state, onIntent)
                 OnboardingStep.EXERCISE_SELECTION -> ExerciseSelectionStep(state, onIntent)
@@ -129,4 +137,18 @@ fun OnboardingScreen(
                 }
             }
         }
+    }
+
+    // On-device Camera AI Body Scan overlay (V2). Spans the full screen so
+    // the camera preview is unobstructed. On cancel or insufficient
+    // detection, dismisses silently and returns the user to the manual
+    // archetype picker — per the V2 spec no error is surfaced.
+    if (showCameraScan) {
+        CameraScanStep(
+            state = state,
+            onIntent = viewModel::handleIntent,
+            onArchetypeScanned = { showCameraScan = false },
+            onCancel = { showCameraScan = false },
+            modifier = Modifier.fillMaxSize(),
+        )
     }

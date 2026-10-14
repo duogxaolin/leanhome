@@ -15,6 +15,7 @@ import CoreDomain
 public struct OnboardingView: View {
     @StateObject private var viewModel = OnboardingViewModel()
     @Query private var exerciseModels: [ExerciseModel]
+    @State private var showingCameraScan = false
     private let onComplete: (UserProfile, Set<String>) -> Void
 
     /// Inferred energy result, recomputed when relevant fields change.
@@ -38,6 +39,19 @@ public struct OnboardingView: View {
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(.page(backgroundDisplayMode: .always))
         .padding(.top, 12)
+        .sheet(isPresented: $showingCameraScan) {
+            // V2 on-device Camera Body Scan. Dismisses silently on cancel,
+            // permission-denied or insufficient landmarks; the manual grid
+            // below remains usable as the fallback per the spec.
+            CameraScanView(
+                gender: viewModel.gender,
+                onScanned: { shape in
+                    viewModel.bodyShape = shape
+                    showingCameraScan = false
+                },
+                onCancel: { showingCameraScan = false },
+            )
+        }
     }
 
     // MARK: 1 — Biometric
@@ -87,6 +101,19 @@ public struct OnboardingView: View {
 
     private var archetypeStep: some View {
         OnboardingStepCard(title: "Body shape", subtitle: "Choose your archetype") {
+            // V2 — optional on-device camera body scan. All processing
+            // happens locally; nothing is uploaded. Falls back to the
+            // grid below on cancel / permission-denied / insufficient
+            // landmarks per spec.
+            Button(action: { showingCameraScan = true }) {
+                Label("Scan My Body", systemImage: "camera.viewfinder")
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 12)
+                    .background(RoundedRectangle(cornerRadius: 12).fill(Color.accentColor.opacity(0.18)))
+                    .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Color.accentColor.opacity(0.55), lineWidth: 1.5))
+            }
+            .buttonStyle(.plain)
+            .padding(.bottom, 8)
             let options = BodyShape.options(for: viewModel.gender)
             LazyVGrid(columns: [.init(.adaptive(minimum: 140), spacing: 16)], spacing: 16) {
                 ForEach(options, id: \.self) { shape in
